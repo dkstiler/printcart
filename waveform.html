@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script language="javascript">
+
+var scaleX=40;
+var scaleY=40;
+var signalH=30;
+var notimeslots=32;
+
+function myFunction() {
+    document.getElementById("demo").innerHTML = "Paragraph changed.";
+}
+
+function textvals() {
+	var text=document.getElementById("hex").value;
+	var sp=text.split(",");
+	var ret=[];
+	for (var x=0; x<sp.length; x++) {
+		ret[x]=parseInt(sp[x]);
+	}
+	return ret;
+}
+
+
+function cvclick(evt) {
+	var x=parseInt(evt.offsetX/scaleX);
+	var y=parseInt(evt.offsetY/scaleY);
+	var f=textvals();
+	f[x]^=(1<<y);
+
+	var s="";
+	for (var i=0; i<f.length; i++) {
+		if (i!=0) s+=",";
+		s+="0x"+f[i].toString(16);
+	}
+	document.getElementById("hex").value=s;
+	drawcanvas();
+}
+
+
+function drawcanvas() {
+	var c=document.getElementById("mycanvas");
+	var ctx=c.getContext("2d");
+	ctx.clearRect(0,0,scaleX*notimeslots, scaleY*16);
+	var vals=textvals();
+	ctx.lineWidth="3";
+	for (var y=0; y<16; y++) {
+		ctx.beginPath();
+		for (var x=0; x<notimeslots; x++) {
+			var bit=(vals[x]&(1<<y))?0:1; //warning - inverted to make drawing easier
+			if (x==0) {
+				ctx.moveTo(x*scaleX, y*scaleY+signalH*bit);
+			} else {
+				ctx.lineTo(x*scaleX, y*scaleY+signalH*bit);
+			}
+			ctx.lineTo((x+1)*scaleX, y*scaleY+signalH*bit);
+		}
+		ctx.stroke();
+	}
+}
+
+window.onload=function(e) {
+	drawcanvas();
+	var c=document.getElementById("mycanvas");
+	c.onclick=cvclick;
+}
+
+</script>
+</head>
+<body>
+<canvas id="mycanvas" width="1280" height="640"></canvas>
+<br>
+<textarea id="hex" rows="4" cols="80">
+0x0,0x21f,0x19,0x203,0x2f,0x62d,0x403,0x649,0x44f,0xc00,0xc88,0xc88,0xc00,0xd08,0xd08,0xc00,0xc00,0xc00,0xc00,0x800,0x800,0x800,0x800
+</textarea>
+
+</body>
+</html>
