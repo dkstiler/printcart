@@ -36,6 +36,7 @@ function cvclick(evt) {
 	}
 	document.getElementById("hex").value=s;
 	drawcanvas();
+	if (document.getElementById("directsend").checked) sendWaveform();
 }
 
 
@@ -60,6 +61,23 @@ function drawcanvas() {
 	}
 }
 
+function sendWaveform() {
+	var xhr = new XMLHttpRequest();
+//	xhr.onload = function(){ alert (xhr.responseText); } // success case
+	xhr.onerror = function(){ alert (xhr.responseText); } // failure case
+	xhr.open("POST", "waveform.cgi", true);
+	var s="wv=";
+	var v=textvals();
+	//Format to "xxxx,yyyy,zzzz" because I'm too lazy to do difficult parsing in C code on the other end
+	for (var i=0; i<v.length; i++) {
+		var h="0000"+v[i].toString(16)+",";
+		s+=h.slice(-5);
+	}
+	if (!document.getElementById("timed").checked) s+="&tm=1"
+	xhr.send(s);
+	return false;
+}
+
 window.onload=function(e) {
 	drawcanvas();
 	var c=document.getElementById("mycanvas");
@@ -73,7 +91,10 @@ window.onload=function(e) {
 <br>
 <textarea id="hex" rows="4" cols="80">
 0x0,0x21f,0x19,0x203,0x2f,0x62d,0x403,0x649,0x44f,0xc00,0xc88,0xc88,0xc00,0xd08,0xd08,0xc00,0xc00,0xc00,0xc00,0x800,0x800,0x800,0x800
-</textarea>
+</textarea><br>
+<button onclick="sendWaveform()">Send!</button>
+<input type="checkbox" id="timed"><label for="timed">Continuous</label>
+<input type="checkbox" id="directsend"><label for="directsend">Send on change</label>
 
 </body>
 </html>
