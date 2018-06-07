@@ -1,0 +1,5 @@
+*.wfm
+*.csv
+wfm2csv
+wfmdec
+dec-*.txt

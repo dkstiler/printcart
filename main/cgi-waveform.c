@@ -9,7 +9,7 @@ static i2s_parallel_buffer_desc_t bufdesc[2][2];
 
 static TimerHandle_t stop_timer;
 
-#define WVLEN 512
+#define WVLEN 2048
 
 static void my_timer_fn(void *arg) {
 	i2s_parallel_flip_to_buffer(&I2S1, 1);

@@ -137,17 +137,17 @@ void i2s_parallel_setup(i2s_dev_t *dev, const i2s_parallel_config_t *cfg) {
     dev->conf2.lcd_en=1;
     
     dev->sample_rate_conf.val=0;
-    dev->sample_rate_conf.rx_bits_mod=cfg->bits;
+    dev->sample_rate_conf.rx_bits_mod=cfg->bits; //don't really matter
     dev->sample_rate_conf.tx_bits_mod=cfg->bits;
     dev->sample_rate_conf.rx_bck_div_num=4; //ToDo: Unsure about what this does...
     dev->sample_rate_conf.tx_bck_div_num=4;
     
     dev->clkm_conf.val=0;
     dev->clkm_conf.clka_en=0;
-    dev->clkm_conf.clkm_div_a=63;
-    dev->clkm_conf.clkm_div_b=63;
+    dev->clkm_conf.clkm_div_a=0;
+    dev->clkm_conf.clkm_div_b=0;
     //We ignore the possibility for fractional division here.
-    dev->clkm_conf.clkm_div_num=80000000L/cfg->clkspeed_hz;
+    dev->clkm_conf.clkm_div_num=1;//80000000L/cfg->clkspeed_hz;
     
     dev->fifo_conf.val=0;
     dev->fifo_conf.rx_fifo_mod_force_en=1;
@@ -194,17 +194,17 @@ void i2s_parallel_stop(i2s_dev_t *dev) {
 
 void i2s_parallel_start(i2s_dev_t *dev, int bufid) {
    //Reset FIFO/DMA -> needed? Doesn't dma_reset/fifo_reset do this?
-//	dma_reset(dev); fifo_reset(dev);
     dev->out_link.stop=1;
     dev->out_link.start=0;
     dev->conf.tx_start=0;
-	vTaskDelay(3);
+	vTaskDelay(5);
+	dma_reset(dev); fifo_reset(dev);
     dev->lc_conf.in_rst=1; dev->lc_conf.out_rst=1; dev->lc_conf.ahbm_rst=1; dev->lc_conf.ahbm_fifo_rst=1;
     dev->lc_conf.in_rst=0; dev->lc_conf.out_rst=0; dev->lc_conf.ahbm_rst=0; dev->lc_conf.ahbm_fifo_rst=0;
     dev->conf.tx_reset=1; dev->conf.tx_fifo_reset=1; dev->conf.rx_fifo_reset=1;
     dev->conf.tx_reset=0; dev->conf.tx_fifo_reset=0; dev->conf.rx_fifo_reset=0;
 
-	vTaskDelay(3);
+	vTaskDelay(5);
     dev->lc_conf.val=I2S_OUT_DATA_BURST_EN | I2S_OUTDSCR_BURST_EN | I2S_OUT_DATA_BURST_EN;
     dev->out_link.addr=((uint32_t)(&i2s_state[i2snum(dev)]->dmadesc_a[bufid]));
     dev->out_link.start=1;
