@@ -1,9 +1,10 @@
+CFLAGS := -ggdb -Og
 
 all: wfmdec wfm2csv
 
 wfmdec: wfmdec.c
-	$(CC) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^
 
 
 wfm2csv: wfm2csv.c
-	$(CC) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^
