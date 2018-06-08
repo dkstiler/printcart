@@ -63,13 +63,13 @@ int get_clk_avg(uint8_t *wfm, int len, int bit, int max) {
 }
 
 int rising_edge(uint8_t *wfm, int pos, int bit) {
-	if (get_bit(wfm-1, pos, bit)!=0) return 0;
+	if (get_bit(wfm, pos-1, bit)!=0) return 0;
 	if (get_bit(wfm, pos, bit)!=1) return 0;
 	return 1;
 }
 
 void set_bit(uint8_t *bits, int i, int b) {
-	int m=(1<<(i&7));
+	int m=(1<<(7-(i&7)));
 	if (b) bits[i/8]|=m; else bits[i/8]&=~m;
 }
 
