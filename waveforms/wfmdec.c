@@ -73,12 +73,16 @@ void set_bit(uint8_t *bits, int i, int b) {
 	if (b) bits[i/8]|=m; else bits[i/8]&=~m;
 }
 
-void print_bits(uint8_t *bits, int len) {
-	int bo[]={11,2,7,12,3,8,13,4,9,0,5,10,1,6};
+void print_bits(uint8_t *bits, int len, int col) {
+	int bo[3][14]={
+		{11,2,7,12,3,8,13,4,9,0,5,10,1,6},
+		{8,13,4,9,0,5,10,1,6,11,2,7,12,3},
+		{0,5,10,1,6,11,2,7,12,3,8,13,4,9}
+	};
 
 	for (int j=1; j!=(1<<8); j<<=1) {
 		for (int i=0; i<14; i++) {
-			printf((bits[bo[i]]&j)?"..":"██");
+			printf((bits[bo[col][i]]&j)?"..":"██");
 		}
 		printf(" ");
 	}
@@ -106,8 +110,11 @@ int main(int argc, char **argv) {
 
 	int mybits[]={BIT_M, BIT_C, BIT_Y};
 	int mybit=BIT_M;
-	if (argc>2) mybit=mybits[atoi(argv[2])];
-
+	int col=0;
+	if (argc>2) {
+		col=atoi(argv[2]);
+		mybit=mybits[col];
+	}
 	int ov=0;
 	int l=0;
 	int bit=0;
@@ -120,7 +127,7 @@ int main(int argc, char **argv) {
 			set_bit(bits, bit++, get_bit(wfm, i+dofs+(clk/2), mybit));
 			if ((bit&7)==0 && last_byte) {
 //			if (bit==14*8) {
-				print_bits(bits, bit);
+				print_bits(bits, bit, col);
 				bit=0;
 				last_byte=0;
 			}

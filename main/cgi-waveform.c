@@ -46,11 +46,15 @@ static void line_clear(uint8_t *l) {
 	for (int i=0; i<14; i++) l[i]=0xff;
 }
 
-static void line_set_pixel(uint8_t *l, int p) {
-	int bo[]={11,2,7,12,3,8,13,4,9,0,5,10,1,6};
+static void line_set_pixel(uint8_t *l, int p, int col) {
+	int bo[3][14]={
+		{11,2,7,12,3,8,13,4,9,0,5,10,1,6},
+		{8,13,4,9,0,5,10,1,6,11,2,7,12,3},
+		{0,5,10,1,6,11,2,7,12,3,8,13,4,9}
+	};
 	if (p<14) return;
 	if (p>(7*14)) return;
-	int byteno=bo[p%14];
+	int byteno=bo[col][p%14];
 	int bitno=p/14;
 	l[byteno]&=~(1<<bitno);
 }
@@ -81,7 +85,7 @@ int add_waveform(uint16_t *w, uint16_t *tp, uint8_t *c, uint8_t *m, uint8_t *y, 
 
 			//Select correct value for seg ena
 			v&=~(1<<3);
-			if (j==13) {
+			if (j==13) { //last one
 				if (v&(1<<14)) v|=(1<<3);
 			} else {
 				if (v&(1<<15)) v|=(1<<3);
@@ -134,9 +138,9 @@ int cgiWaveform(HttpdConnData *connData) {
 			line_clear(m);
 			line_clear(y);
 			for (int j=0; j<7; j++) {
-				line_set_pixel(c, i+16*j);
-				line_set_pixel(m, i+16*j);
-				line_set_pixel(y, i+16*j);
+				line_set_pixel(c, i+16*j, 0);
+				line_set_pixel(m, i+16*j, 1);
+				line_set_pixel(y, i+16*j, 2);
 			}
 			pos+=add_waveform(&wv[pos], wf_desc, c, m, y, tp_len);
 		}
