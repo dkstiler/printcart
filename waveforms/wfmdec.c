@@ -69,14 +69,14 @@ int rising_edge(uint8_t *wfm, int pos, int bit) {
 }
 
 void set_bit(uint8_t *bits, int i, int b) {
-	int m=(1<<(7-(i&7)));
+	int m=(1<<(i&7));
 	if (b) bits[i/8]|=m; else bits[i/8]&=~m;
 }
 
 void print_bits(uint8_t *bits, int len) {
 	int bo[]={11,2,7,12,3,8,13,4,9,0,5,10,1,6};
 
-	for (int j=(1<<7); j!=0; j>>=1) {
+	for (int j=1; j!=(1<<8); j<<=1) {
 		for (int i=0; i<14; i++) {
 			printf((bits[bo[i]]&j)?"..":"██");
 		}
