@@ -86,7 +86,7 @@ void set_bit(uint8_t *bits, int i, int b) {
 }
 
 //bits is the array of bits as 
-void print_bits(uint8_t *bits, int len, int alt_order) {
+void print_bits(uint8_t *bits, int len, int alt_order, uint8_t *power) {
 	//Bit order for each color. Each color has the sequence of bits slightly
 	//different, hence the three arrays (the data in each is just a shifted version
 	//of the others.)
@@ -97,8 +97,8 @@ void print_bits(uint8_t *bits, int len, int alt_order) {
 		{0,5,10,1,6,11,2,7,12,3,8,13,4,9}
 	};
 	int bo_n[3][14]={
-		{1,6,11,2,7,12,3,8,13,4,9,0,5,10},
-		{12,3,8,13,4,9,0,5,10,1,6,11,2,7},
+		{7,12,3,8,13,4,9,0,5,10,1,6,11,2},
+		{10,1,6,11,2,7,12,3,8,13,4,9,0,5},
 		{4,9,0,5,10,1,6,11,2,7,12,3,8,13}
 	};
 
@@ -134,7 +134,24 @@ void print_bits(uint8_t *bits, int len, int alt_order) {
 		}
 		printf(" ");
 	}
-	printf("\033[37m\n");
+	printf("\033[37m%s", alt_order?"A":"N");
+
+#if 1
+	printf("\n");
+	for (int j=0; j<8; j++) {
+		for (int i=0; i<14; i++) {
+			int idx=bo[2][i];
+			if (j<4) {
+				printf("%s", (power[idx]&2)?"PP":"  ");
+			} else {
+				printf("%s", (power[idx]&1)?"PP":"  ");
+			}
+		}
+		printf(" ");
+	}
+	printf("\n");
+#endif
+
 }
 
 //LA channels for various signals
@@ -178,6 +195,7 @@ int main(int argc, char **argv) {
 	int alt_order=0;
 	//This array will contain the bits that are clocked out on the selected line. No re-ordering is done here yet; the bits are stored here sequentially.
 	uint8_t bits[32*3];
+	uint8_t power[14]={0};
 	for (int i=1; i<len; i++) {
 		if (rising_edge(wfm, i, BIT_CLK)) { //clock goes up
 			l=0;
@@ -192,10 +210,12 @@ int main(int argc, char **argv) {
 			bit+=2;
 			if ((bit&7)==0 && last_byte) {
 //			if (bit==14*8) {
-				print_bits(bits, bit, alt_order>2);
+				print_bits(bits, bit, alt_order>2, power);
+
 				bit=0;
 				last_byte=0;
 				alt_order=0;
+				memset(power, 0, 14);
 			}
 		}
 		if (rising_edge(wfm, i, 8)) {
@@ -204,6 +224,11 @@ int main(int argc, char **argv) {
 		if (rising_edge(wfm, i, 6)) {
 			if (get_bit(wfm, i+(clk/4), 5)) last_byte=1;
 		}
+		if (rising_edge(wfm, i+(clk*3), 0)) power[bit/8]|=1;
+		if (rising_edge(wfm, i+(clk*3), 1)) power[bit/8]|=2;
+		if (rising_edge(wfm, i+(clk*3), 16)) power[bit/8]|=1;
+		if (rising_edge(wfm, i+(clk*3), 17)) power[bit/8]|=2;
+
 		if (l>clk_avg*4) bit&=~7;
 		l++;
 	}

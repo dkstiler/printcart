@@ -37,5 +37,43 @@ geel:
 0x1,0x209,0x289,0x289,0x88,0x80,0x0,0x808,0x108,0x108,0x108,0x100
 
 
-Waveform capture: 2uS
+Waveform capture: 2uS -> sample rate 250MHz
+
+
+Connections to cartridge, looking *into printer*:
+
+----------------------
+
+              10
+     01
+     02      11
+     03 04   12
+    05        13
+    06
+   07          14
+09 08          15 16
+
+    (paper here)
+-----------------------
+
+Signals (between brackets: LA channel in waveform dumps)
+9, 16: ground
+15: PWRA (0/16)
+4: PWRB (1/17)
+14: (2)
+2: (3)
+12: (4)
+3: (5)
+
+7: (6)
+6: (7)
+5: (8) If pin 3 is low, this indicates that the carriage moves backwards, inverting the bit->nozzle mapping.
+1: (9)
+11: (10)
+10: (11)
+13: (12)
+
+PWRA pulses if any of the 1st 4 CMY lines are low for a byte
+PWRB pulses if any of the 2nd 4 CMY lines are low for a byte
+
 
