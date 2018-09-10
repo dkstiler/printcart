@@ -86,15 +86,24 @@ void set_bit(uint8_t *bits, int i, int b) {
 }
 
 //bits is the array of bits as 
-void print_bits(uint8_t **bits, int len) {
+void print_bits(uint8_t *bits, int len, int alt_order) {
 	//Bit order for each color. Each color has the sequence of bits slightly
 	//different, hence the three arrays (the data in each is just a shifted version
 	//of the others.)
-	int bo[3][14]={
+
+	int bo_a[3][14]={ //M, C, Y
 		{11,2,7,12,3,8,13,4,9,0,5,10,1,6},
 		{8,13,4,9,0,5,10,1,6,11,2,7,12,3},
 		{0,5,10,1,6,11,2,7,12,3,8,13,4,9}
 	};
+	int bo_n[3][14]={
+		{1,6,11,2,7,12,3,8,13,4,9,0,5,10},
+		{12,3,8,13,4,9,0,5,10,1,6,11,2,7},
+		{4,9,0,5,10,1,6,11,2,7,12,3,8,13}
+	};
+
+	int *bo[3];
+	for (int x=0; x<3; x++) bo[x]=alt_order?bo_a[x]:bo_n[x];
 
 	int lut[8]={
 		97, //white bgnd
@@ -108,11 +117,17 @@ void print_bits(uint8_t **bits, int len) {
 	};
 
 	//Decode the bits in the order needed
-	for (int j=1; j!=(1<<8); j<<=1) {
+	int j;
+	for (int bit=0; bit<8; bit++) {
+		if (alt_order) {
+			j=(1<<bit);
+		} else {
+			j=(1<<(7-bit));
+		}
 		for (int i=0; i<14; i++) {
 			int col=0;
 			for (int c=0; c<3; c++) {
-				if (bits[c][bo[c][i]]&j) col|=(1<<c);
+				if (bits[c*32+bo[c][i]] & j) col|=(1<<c);
 			}
 			printf("\033[%dm", lut[7-col]);
 			printf(col==7?"..":"██");
@@ -160,27 +175,31 @@ int main(int argc, char **argv) {
 	int l=0;
 	int bit=0;
 	int last_byte=0;
+	int alt_order=0;
 	//This array will contain the bits that are clocked out on the selected line. No re-ordering is done here yet; the bits are stored here sequentially.
-	uint8_t bitstore[3][32]={{0}};
-	uint8_t *bits[]={bitstore[0], bitstore[1], bitstore[2]};
+	uint8_t bits[32*3];
 	for (int i=1; i<len; i++) {
 		if (rising_edge(wfm, i, BIT_CLK)) { //clock goes up
 			l=0;
 			for (int c=0; c<3; c++) {
 				if (colmask&(1<<c)) {
 					//Data at rising clock edge
-					set_bit(bits[c], bit, get_bit(wfm, i+dofs, mybits[c]));
+					set_bit(&bits[c*32], bit, get_bit(wfm, i+dofs, mybits[c]));
 					//Data at falling clock edge
-					set_bit(bits[c], bit+1, get_bit(wfm, i+dofs+(clk/2), mybits[c]));
+					set_bit(&bits[c*32], bit+1, get_bit(wfm, i+dofs+(clk/2), mybits[c]));
 				}
 			}
 			bit+=2;
 			if ((bit&7)==0 && last_byte) {
 //			if (bit==14*8) {
-				print_bits(bits, bit);
+				print_bits(bits, bit, alt_order>2);
 				bit=0;
 				last_byte=0;
+				alt_order=0;
 			}
+		}
+		if (rising_edge(wfm, i, 8)) {
+			if (get_bit(wfm, i+(clk/4), 5)) alt_order++;
 		}
 		if (rising_edge(wfm, i, 6)) {
 			if (get_bit(wfm, i+(clk/4), 5)) last_byte=1;
