@@ -29,7 +29,7 @@ esp_err_t event_handler(void *ctx, system_event_t *event)
 
 extern int printcart_mem_words_used;
 
-#define CMY_OFF 0 //32
+#define CMY_OFF 32
 
 void pixel_pusher_task(void *arg) {
 	printf("Ready.\n");
@@ -53,13 +53,12 @@ void pixel_pusher_task(void *arg) {
 			const uint8_t *p[3];
 			for (int c=0; c<3; c++) {
 				ypos[c]++;
-				if (ypos[c]==NYAN_REP_END*SCALE) ypos[c]=0;//NYAN_REP_START*SCALE;
+				if (ypos[c]==NYAN_REP_END*SCALE) ypos[c]=NYAN_REP_START*SCALE;
 				p[c]=&nyanrgb_start[(ypos[c]/SCALE)*84*3+c];
 			}
-//			const uint8_t *p=&nyanrgb_start[0];
 			for (int x=14; x<14+84; x++) {
 				for (int c=0; c<3; c++) {
-					if ((255-*p[c])>(rand()&0xff)) {
+					if ((255-*p[c])>(rand()&0x1ff)) {
 						if (ypos[c]>=0) printcart_line_set_pixel(&pixels[c*14], x, c);
 					}
 					p[c]+=3;
