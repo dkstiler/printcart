@@ -84,4 +84,9 @@ Ideeen pres:
 - Ik heb een Rigol met een LA. Die dingen zijn uitbreidbaar door codes te kopen bij manuf. Ik ben aan
 enkele codes gekomen (beeld: https://hackaday.com/2014/11/12/how-to-get-50-more-zed-from-your-rigol-ds1054z/
 
+- DAta over de flatcable is differential, LVDS ofzo, want je moet wel een idioot zijn om high-freq, single-ended,
+high-power data over een goedkope flatcable te gooien. Ik moet de data toch van de kop weghalen... heej, die oude
+printer heeft een goedkope flatcable waar ik mooi die high-freq, single-ended, high-power signalen overheen kan 
+gooien!
+
 
