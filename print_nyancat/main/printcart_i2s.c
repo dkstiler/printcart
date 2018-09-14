@@ -221,7 +221,7 @@ static void IRAM_ATTR i2s_int_hdl(void *arg) {
 		for (int i=0; i<NO_ROWS; i++) {
 			memset(colors, 0xff, 14*3);
 			xQueueReceiveFromISR(i2s_state[devno]->pixq, colors, &high_priority_task_awoken);
-			p+=printcart_add_waveform((uint16_t*)&finish_desc->buf[p], waveform_tpl, &colors[14], &colors[0], &colors[28], sizeof(waveform_tpl)/2);
+			p+=printcart_add_waveform((uint16_t*)&finish_desc->buf[p], waveform_tpl, &colors[0], &colors[14], &colors[28], sizeof(waveform_tpl)/2);
 		}
 		printcart_mem_words_used=p;
 	}

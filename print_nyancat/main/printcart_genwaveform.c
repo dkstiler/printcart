@@ -16,8 +16,11 @@ void IRAM_ATTR printcart_line_set_pixel(uint8_t *l, int p, int col) {
 	//Byte order for the three colors. Note that these arrays are
 	//just shifted versions of eachother.
 	int bo[3][14]={
-		{11,2,7,12,3,8,13,4,9,0,5,10,1,6},
+//		{7,12,3,8,13,4,9,0,5,10,1,6,11,2},
+//		{10,1,6,11,2,7,12,3,8,13,4,9,0,5},
+//		{4,9,0,5,10,1,6,11,2,7,12,3,8,13}
 		{8,13,4,9,0,5,10,1,6,11,2,7,12,3},
+		{11,2,7,12,3,8,13,4,9,0,5,10,1,6},
 		{0,5,10,1,6,11,2,7,12,3,8,13,4,9}
 	};
 	if (p<14) return;

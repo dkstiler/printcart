@@ -29,7 +29,7 @@ esp_err_t event_handler(void *ctx, system_event_t *event)
 
 extern int printcart_mem_words_used;
 
-#define CMY_OFF 10
+#define CMY_OFF 0 //32
 
 void pixel_pusher_task(void *arg) {
 	printf("Ready.\n");
@@ -59,8 +59,8 @@ void pixel_pusher_task(void *arg) {
 //			const uint8_t *p=&nyanrgb_start[0];
 			for (int x=14; x<14+84; x++) {
 				for (int c=0; c<3; c++) {
-					if ((255-*p[c])>(rand()&0x1ff)) {
-						printcart_line_set_pixel(&pixels[c*14], x, c);
+					if ((255-*p[c])>(rand()&0xff)) {
+						if (ypos[c]>=0) printcart_line_set_pixel(&pixels[c*14], x, c);
 					}
 					p[c]+=3;
 				}
@@ -103,7 +103,7 @@ int app_main(void)
 	i2s_parallel_buffer_desc_t bufdesc[2][2];
 
 	i2s_parallel_config_t i2scfg={
-		.gpio_bus={2, 15, 4, 16, 27, 17,5, 18, 19, 21, 26, 25, 22, 23, -1, -1, -1},
+		.gpio_bus={15, 2, 4, 16, 27, 17,5, 18, 19, 21, 26, 25, 22, 23, -1, -1, -1},
 		.gpio_clk=-1,
 		.bits=I2S_PARALLEL_BITS_16,
 		.clkspeed_hz=16*1000*1000,
