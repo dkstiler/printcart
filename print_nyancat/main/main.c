@@ -58,7 +58,7 @@ void pixel_pusher_task(void *arg) {
 			}
 			for (int x=14; x<14+84; x++) {
 				for (int c=0; c<3; c++) {
-					if ((255-*p[c])>(rand()&0x1ff)) {
+					if ((255-*p[c])>(rand()&0x3ff)) {
 						if (ypos[c]>=0) printcart_line_set_pixel(&pixels[c*14], x, c);
 					}
 					p[c]+=3;

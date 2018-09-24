@@ -90,3 +90,13 @@ printer heeft een goedkope flatcable waar ik mooi die high-freq, single-ended, h
 gooien!
 
 
+16V: LM27313XMF ? (maar 100mA @ 15V bij input van 4V...)
+
+Ways to sense position on a 2d surface:
+- TOF sensors. Problem: precision is low (0.5cm at best)
+- Accelerometer. Problem: drift. Best used with Kalman and stable source.
+- Wacom tablet behind target. Problem: what if wall?
+- Ultrasonic combined with IR for timing. (Thunderstorm!)
+- US combined with WiFi for timing! (Thunderstorm, Jeroen-is-lazy way)
+
+
