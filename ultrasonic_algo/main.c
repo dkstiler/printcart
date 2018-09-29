@@ -9,7 +9,7 @@
 #define WFMRATE 5000000
 //#define USRATE 40550.0
 #define USRATE 40000.0
-#define INTRATE (USRATE*4) //160KHz
+#define INTRATE (USRATE*8) //320KHz
 #define INTSAMPS (int)((SAMPS*INTRATE)/WFMRATE)
 
 uint8_t *load_wfm(char *wfmname) {
@@ -35,7 +35,7 @@ typedef struct {
 } samp_t;
 
 int get_samp(samp_t *s, int off, int chan) {
-	double off_r=((double)off/INTRATE)*WFMRATE;
+	double off_r=((double)off/INTRATE)*(double)WFMRATE;
 	int off_p=floor(off_r);
 	double frac=off_r-off_p;
 	if (off_p+1>=SAMPS) return 0;
@@ -59,40 +59,46 @@ Speed of sound: 340m/s = 340mm/ms = 2.941 us/mm
 40KHz -> 25uS/wave -> 1 wave = 8.5mm
 */
 
-
-
 int main(int argc, char **argv) {
 	samp_t *samps=(samp_t*)(load_wfm(argv[1]));
 	int si[INTSAMPS], sq[INTSAMPS], amp[INTSAMPS], phase[INTSAMPS];
+	//demodulate
 	for (int i=0; i<INTSAMPS; i++) {
-		int j=(i&3);
-		if (j==0) {
-			si[i]=get_samp(samps, i, 2)-get_samp(samps, i+2, 2);
-			sq[i]=get_samp(samps, i+1, 2)-get_samp(samps, i+3, 2);
-		} else if (j==1) {
-			si[i]=get_samp(samps, i+3, 2)-get_samp(samps, i+1, 2);
-			sq[i]=get_samp(samps, i, 2)-get_samp(samps, i+2, 2);
-		} else if (j==2) {
-			si[i]=get_samp(samps, i+2, 2)-get_samp(samps, i, 2);
-			sq[i]=get_samp(samps, i+3, 2)-get_samp(samps, i+1, 2);
-		} else if (j==3) {
-			si[i]=get_samp(samps, i+1, 2)-get_samp(samps, i+3, 2);
-			sq[i]=get_samp(samps, i+2, 2)-get_samp(samps, i, 2);
-		}
+		const int qsin[8]={0,10,14,10,0,-10,-14,-10};
+		const int qcos[8]={14,10,0,-10,-14,-10,0,10};
+		si[i]=get_samp(samps, i, 2)*qsin[i&7];
+		sq[i]=get_samp(samps, i, 2)*qcos[i&7];
 	}
+	//filter
+	int histi[8]={0};
+	int histq[8]={0};
+	int ci=0, cq=0;
+	for (int i=0; i<INTSAMPS; i++) {
+		ci-=histi[i&7];
+		cq-=histq[i&7];
+		histi[i&7]=si[i];
+		histq[i&7]=sq[i];
+		ci+=si[i];
+		cq+=sq[i];
+		si[i]=ci/14;
+		sq[i]=cq/14;
+	}
+
+	//calc samp and ampl
 	for (int i=0; i<INTSAMPS; i++) {
 		phase[i]=atan2(si[i], sq[i])*(360/2*M_PI);
 		amp[i]=sqrt(si[i]*si[i]+sq[i]*sq[i]);
 	}
 	
+	//do correlation
 	const int8_t rphase[]={1,-1,1,1,-1,-1,-1};
 	int mul[INTSAMPS];
 	for (int i=0; i<INTSAMPS; i++) {
 		int ci, cq;
 		ci=0; cq=0;
 		int j;
-		for (j=0; j<4*4*sizeof(rphase); j++) {
-			int ph=j/16;
+		for (j=0; j<8*4*sizeof(rphase); j++) {
+			int ph=j/(8*4);
 			assert(ph<7);
 			if (i+j<INTSAMPS) {
 				if (amp[i+j]>2) {
@@ -111,9 +117,9 @@ int main(int argc, char **argv) {
 		if (mul[i]>mul[mulmax]) mulmax=i;
 		if (startidx==0 && i>30 && get_samp(samps, i, 1)-get_samp(samps, i-10, 1)>20) startidx=i;
 	}
-	printf("Start %d highest corr %d diff %d\n", startidx, mulmax, mulmax-startidx);
-	int diff=(mulmax-startidx)-50.298;
-	printf("--> %f mm\n", ((double)diff*2.1333));
+	printf("%s: Start %d highest corr %d diff %d ", argv[1], startidx, mulmax, mulmax-startidx);
+	double diff=(mulmax-startidx)-109.3006;
+	printf("--> %f mm\n", (diff/0.9191471181));
 
 	FILE *out=fopen("plot.txt", "w");
 	if (!out) {
@@ -125,3 +131,4 @@ int main(int argc, char **argv) {
 	}
 	fclose(out);
 }
+
