@@ -1,0 +1,11 @@
+WARNING: Toolchain version is not supported: 1.22.0-73-ge28a011
+Expected to see version: 1.22.0-80-g6c4433a
+Please check ESP-IDF setup instructions and update the toolchain, or proceed at your own risk.
+WARNING: Toolchain version is not supported: 1.22.0-73-ge28a011
+Expected to see version: 1.22.0-80-g6c4433a
+Please check ESP-IDF setup instructions and update the toolchain, or proceed at your own risk.
+Python requirements from /home/jeroen/esp8266/esp32/esp-idf/requirements.txt are satisfied.
+Flashing binaries to serial port /dev/ttyUSB0 (app at offset 0x10000 )...
+esptool.py v2.5.0
+Serial port /dev/ttyUSB0
+Connecting...
