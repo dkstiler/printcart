@@ -57,21 +57,22 @@ Connections to cartridge, looking *into printer*:
 -----------------------
 
 Signals (between brackets: LA channel in waveform dumps)
-9, 16: ground
+9: ground
+16: ground
+8: N/C? Goes somewhere on-die, connected with ?caps?
 15: PWRA (0/16)
 4: PWRB (1/17)
-14: (2)
-2: (3)
-12: (4)
-3: (5)
-
-7: (6)
-6: (7)
-5: (8) If pin 3 is low, this indicates that the carriage moves backwards, inverting the bit->nozzle mapping.
-1: (9)
-11: (10)
-10: (11)
-13: (12)
+14: [9V] (2) noz data magenta
+2: [9V] (3) noz data cyan
+12: [9V] (4) noz data yellow
+3: [9V] (5) opt data
+7: [16V] (6) opt2 something upper latch
+6: [16V] (7) opt4 something lower latch
+5: [16V] (8) opt1 If pin 3 is low, this indicates that the carriage moves backwards, inverting the bit->nozzle mapping.
+1: [16V] (9) opt5 latch
+11: [16V] (10) noz clk
+10: [16V] (11) opt3 latch
+13: Temp sensor, connected to ground. (70'ish ohm at 20c)
 
 PWRA pulses if any of the 1st 4 CMY lines are low for a byte
 PWRB pulses if any of the 2nd 4 CMY lines are low for a byte
@@ -89,14 +90,5 @@ high-power data over een goedkope flatcable te gooien. Ik moet de data toch van 
 printer heeft een goedkope flatcable waar ik mooi die high-freq, single-ended, high-power signalen overheen kan 
 gooien!
 
-
-16V: LM27313XMF ? (maar 100mA @ 15V bij input van 4V...)
-
-Ways to sense position on a 2d surface:
-- TOF sensors. Problem: precision is low (0.5cm at best)
-- Accelerometer. Problem: drift. Best used with Kalman and stable source.
-- Wacom tablet behind target. Problem: what if wall?
-- Ultrasonic combined with IR for timing. (Thunderstorm!)
-- US combined with WiFi for timing! (Thunderstorm, Jeroen-is-lazy way)
 
 
