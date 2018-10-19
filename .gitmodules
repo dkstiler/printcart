@@ -1,3 +1,6 @@
 [submodule "components/libesphttpd"]
 	path = check_waveform/components/libesphttpd
 	url = http://git.spritesserver.nl/libesphttpd.git/
+[submodule "integrated/components/esp32-vl53l0x"]
+	path = integrated/components/esp32-vl53l0x
+	url = https://github.com/kylehendricks/esp32-vl53l0x.git

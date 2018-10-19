@@ -136,7 +136,7 @@ void print_bits(uint8_t *bits, int len, int alt_order, uint8_t *power) {
 	}
 	printf("\033[37m%s", alt_order?"A":"N");
 
-#if 1
+#if 0
 	printf("\n");
 	for (int j=0; j<8; j++) {
 		for (int i=0; i<14; i++) {
@@ -149,8 +149,8 @@ void print_bits(uint8_t *bits, int len, int alt_order, uint8_t *power) {
 		}
 		printf(" ");
 	}
-	printf("\n");
 #endif
+	printf("\n");
 
 }
 
@@ -205,6 +205,9 @@ int main(int argc, char **argv) {
 					set_bit(&bits[c*32], bit, get_bit(wfm, i+dofs, mybits[c]));
 					//Data at falling clock edge
 					set_bit(&bits[c*32], bit+1, get_bit(wfm, i+dofs+(clk/2), mybits[c]));
+				} else {
+					set_bit(&bits[c*32], bit, 1);
+					set_bit(&bits[c*32], bit+1, 1);
 				}
 			}
 			bit+=2;

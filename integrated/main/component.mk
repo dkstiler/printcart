@@ -7,6 +7,6 @@
 # please read the ESP-IDF documents if you need to do this.
 #
 
-COMPONENT_EMBED_FILES := nyan_84.rgb
 
+include $(IDF_PATH)/make/component_common.mk
 
