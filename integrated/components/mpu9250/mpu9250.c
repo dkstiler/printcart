@@ -49,14 +49,14 @@ esp_err_t mpu9250_start(mpu9250_dev_t *dev, int samp_div) {
 		printf("No MPU9250 detected at i2c addr %x! (%d)\n", dev->i2c_address, i);
 		return ESP_ERR_NOT_FOUND;
 	}
-	setreg(dev, 107, 1);		//Take out of sleep, gyro as clk
+	setreg(dev, 107, 0x80);		//reset
+	setreg(dev, 107, 1);		//Take out of sleep, auto-select clk
 	setreg(dev, 108, 0);		//Un-standby everything
-	setreg(dev, 106, 0x0C);		//reset more stuff
+	setreg(dev, 106, 0x0C);		//reset fifo, i2c master, signal paths
 	vTaskDelay(10);
-	setreg(dev, 106, 0x0);		//reset more stuff
 	setreg(dev, 25, samp_div);	//Sample divider
-	setreg(dev, 26, (7<<3)|0);	//fsync to accel_z[0], 260Hz bw (making Fsamp 8KHz)
-	setreg(dev, 27, 0);			//gyro def
+	setreg(dev, 26, 0x40);		//fifo replaces old data, no dlpf, no fsync
+	setreg(dev, 27, 0);			//gyro def, gyro bw = 250Hz
 	setreg(dev, 28, 0);			//accel 2G
 	setreg(dev, 35, 0x48);		//fifo: emit accel data plus x gyro
 	setreg(dev, 36, 0x00);		//no slave

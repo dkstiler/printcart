@@ -1,4 +1,4 @@
-#include "tca9534.h"
+#include "tcs3472.h"
 #include "esp_err.h"
 #include "esp_log.h"
 
@@ -31,7 +31,7 @@
 
 #define ACK_CHECK_EN true
 
-static esp_err_t tcs_get_regs(tca9534_dev_t *dev, int reg, uint8_t *data, int len) {
+static esp_err_t tcs_get_regs(tcs3472_dev_t *dev, int reg, uint8_t *data, int len) {
 	i2c_cmd_handle_t cmd = i2c_cmd_link_create();
 	i2c_master_start(cmd);
 	i2c_master_write_byte(cmd, (dev->i2c_address<<1)|I2C_MASTER_WRITE, ACK_CHECK_EN);
@@ -50,7 +50,7 @@ static esp_err_t tcs_get_regs(tca9534_dev_t *dev, int reg, uint8_t *data, int le
 	return err;
 }
 
-static esp_err_t tcs_set_reg(tca9534_dev_t *dev, int reg, uint8_t data) {
+static esp_err_t tcs_set_reg(tcs3472_dev_t *dev, int reg, uint8_t data) {
 	i2c_cmd_handle_t cmd = i2c_cmd_link_create();
 	i2c_master_start(cmd);
 	i2c_master_write_byte(cmd, (dev->i2c_address<<1)|I2C_MASTER_WRITE, ACK_CHECK_EN);
@@ -63,12 +63,15 @@ static esp_err_t tcs_set_reg(tca9534_dev_t *dev, int reg, uint8_t data) {
 }
 
 
-esp_err_t tcs3472_init(i2c_port_t port, uint8_t addr, tca9534_dev_t *dev) {
+esp_err_t tcs3472_init(i2c_port_t port, uint8_t addr, tcs3472_dev_t *dev) {
 	dev->i2c_port_num=port;
 	dev->i2c_address=addr;
 	uint8_t id=0;
 	esp_err_t ret=tcs_set_reg(dev, TCS_CMD_CMD|TCS_ENABLE, 0xb);
-	if (ret!=ESP_OK) return ret;
+	if (ret!=ESP_OK) {
+		printf("Tcs3472: enable: no ack!\n");
+		return ret;
+	}
 	vTaskDelay(10/portTICK_RATE_MS);
 	ret=tcs_get_regs(dev, TCS_CMD_CMD|TCS_ID, &id, 1);
 	if (ret!=ESP_OK) return ret;
@@ -81,7 +84,7 @@ esp_err_t tcs3472_init(i2c_port_t port, uint8_t addr, tca9534_dev_t *dev) {
 	return ret;
 }
 
-esp_err_t tcs3472_get_input(tca9534_dev_t *dev, int *r, int *g, int *b, int *c) {
+esp_err_t tcs3472_get_input(tcs3472_dev_t *dev, int *r, int *g, int *b, int *c) {
 	uint8_t buf[8];
 	esp_err_t ret=tcs_get_regs(dev, TCS_CMD_CMD|TCS_CMD_INC|TCS_CDATAL, buf, 8);
 	if (c) *c=buf[0]|(buf[1]<<8);

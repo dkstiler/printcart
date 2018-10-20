@@ -273,7 +273,7 @@ static void lcd_init(spi_device_handle_t spi) {
 
 void st7735_send(spi_device_handle_t spi, uint8_t *buf, int xs, int ys, int xe, int ye) {
 	const int ox=26;
-	const int oy=0;
+	const int oy=1;
 	xs+=ox; xe+=ox;
 	ys+=oy; ye+=oy;
 	uint8_t cabuf[]={xs>>8, xs&0xff, xe>>8, xe&0xff};

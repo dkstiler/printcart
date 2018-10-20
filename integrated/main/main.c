@@ -21,8 +21,30 @@
 #include "ugui.h"
 #include "tcs3472.h"
 #include "mpu9250.h"
+#include "vl_task.h"
 
-static VL53L0X_Dev_t vl_dev[2];
+#define PIN_NUM_MOSI 33
+#define PIN_NUM_CLK	 25
+#define PIN_NUM_CS	 26
+#define PIN_NUM_DC	 0
+
+
+#define TCA_XSHUT3 (1<<0)
+#define TCA_XSHUT1 (1<<1)
+#define TCA_BOOSTEN (1<<2)
+#define TCA_WHLED (1<<3)
+#define TCA_LCDRST (1<<4)
+#define TCA_BKLT (1<<5)
+#define TCA_XSHUT2 (1<<7)
+
+static VL53L0X_Dev_t vl_dev[3];
+spi_device_handle_t lcddev;
+tca9534_dev_t *tca;
+tcs3472_dev_t *tcs;
+mpu9250_dev_t *mpu;
+
+uint16_t *fb[160*80];
+
 
 static void i2c_master_init()
 {
@@ -39,27 +61,6 @@ static void i2c_master_init()
 	ESP_ERROR_CHECK(i2c_driver_install(i2c_master_port, conf.mode, 0, 0, 0));
 }
 
-
-#define PIN_NUM_MOSI 33
-#define PIN_NUM_CLK	 25
-#define PIN_NUM_CS	 26
-#define PIN_NUM_DC	 0
-
-
-#define TCA_XSHUT3 (1<<0)
-#define TCA_XSHUT1 (1<<1)
-#define TCA_BOOSTEN (1<<2)
-#define TCA_WHLED (1<<3)
-#define TCA_LCDRST (1<<4)
-#define TCA_BKLT (1<<5)
-#define TCA_XSHUT2 (1<<7)
-
-spi_device_handle_t lcddev;
-tca9534_dev_t *tca;
-tcs3472_dev_t *tcs;
-mpu9250_dev_t *mpu;
-
-uint16_t *fb[160*80];
 
 void lcd_init() {
 	esp_err_t ret;
@@ -90,18 +91,19 @@ void lcd_init() {
 }
 
 
-int app_main(void)
-{
+void peripherals_init() {
 	i2c_master_init();
-	printf("Tca9534 init\n");
+	vTaskDelay(10);
 	tca=malloc(sizeof(tca9534_dev_t));
 	tcs=malloc(sizeof(tcs3472_dev_t));
 	mpu=malloc(sizeof(mpu9250_dev_t));
+
+	//Init TCA first, as the vl53l0x reset lines and the LCD reset lines are controlled by it
 	ESP_ERROR_CHECK(tca9534_init(I2C_NUM_1, 0x20, tca));
 	tca9534_set_dir(tca, 0);
 	tca9534_set_output(tca, TCA_BOOSTEN);
-	lcd_init();
 
+	//Init VL53L0x and move them to new I2C addresses, as they occupy the same address as the TCS3472.
 	const uint8_t vl_gpios[3]={TCA_XSHUT1, TCA_XSHUT2, TCA_XSHUT3};
 	for (int i=0; i<3; i++) {
 		tca9534_change_output(tca, 0, vl_gpios[i]);
@@ -121,23 +123,38 @@ int app_main(void)
 	}
 	
 	ESP_ERROR_CHECK(mpu9250_init(I2C_NUM_1, 0x69, mpu));
-	//Do this now; all conflicting VL* chips are moved away...
 	ESP_ERROR_CHECK(tcs3472_init(I2C_NUM_1, 0x29, tcs));
 
+	lcd_init();
+
+	vl_task_init(vl_dev, 3);
+}
+
+int app_main(void) {
+	peripherals_init();
+
+	UG_FontSelect(&FONT_6X8);
+	UG_SetForecolor(C_WHITE);
+	VL53L0X_RangingMeasurementData_t measurement_data[3]={0};
 	while(1) {
-		VL53L0X_RangingMeasurementData_t measurement_data[3];
-		for (int i=0; i<3; i++) {
-			VL53L0X_Error status = take_reading(&vl_dev[i], &measurement_data[i]);
-			assert(status == VL53L0X_ERROR_NONE);
-		}
-		printf("%d / %d / %d mm\n", measurement_data[0].RangeMilliMeter, measurement_data[1].RangeMilliMeter, measurement_data[2].RangeMilliMeter);
-//		vTaskDelay(10);
-		int cc, cr, cg, cb;
+		char buff[256];
+		st7735_ugui_cls();
+
+		vl_task_get_results(&measurement_data[0]);
+		sprintf(buff, "%d / %d / %d mm\n", measurement_data[0].RangeMilliMeter, measurement_data[1].RangeMilliMeter, measurement_data[2].RangeMilliMeter);
+		UG_PutString(0, 0, buff);
+
+		int cc=0, cr=0, cg=0, cb=0;
 		ESP_ERROR_CHECK(tcs3472_get_input(tcs, &cr, &cg, &cb, &cc));
-		printf("RGBC %d %d %d %d\n", cr, cg, cb, cc);
+		sprintf(buff, "RGBC %d %d %d %d\n", cr, cg, cb, cc);
+		UG_PutString(0, 8, buff);
+
 		mpu9250_accel_tp mpumeas[128];
 		int mpuct=mpu9250_read_fifo(mpu, mpumeas, 128);
-		printf("Accel %d %d %d\n", mpumeas[0].accelx, mpumeas[0].accely, mpumeas[0].accelz);
+		sprintf(buff, "Accel ct %d\n%d %d %d\n", mpuct, mpumeas[0].accelx, mpumeas[0].accely, mpumeas[0].accelz);
+		UG_PutString(0, 16, buff);
+
+		st7735_ugui_flush();
 	}
 }
 
