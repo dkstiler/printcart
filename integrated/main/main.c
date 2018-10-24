@@ -22,12 +22,33 @@
 #include "tcs3472.h"
 #include "mpu9250.h"
 #include "vl_task.h"
+#include "printcart_genwaveform.h"
+#include "printcart_i2s.h"
+#include "pixelpusher.h"
 
 #define PIN_NUM_MOSI 33
 #define PIN_NUM_CLK	 25
 #define PIN_NUM_CS	 26
 #define PIN_NUM_DC	 0
 
+#define PIN_NUM_CART_NOZD_Y 13
+#define PIN_NUM_CART_NOZD_M 12
+#define PIN_NUM_CART_NOZD_C 27
+#define PIN_NUM_CART_NOZCLK 18
+#define PIN_NUM_CART_OPTD 14
+#define PIN_NUM_CART_OPT1 4
+#define PIN_NUM_CART_OPT2 32
+#define PIN_NUM_CART_OPT3 19
+#define PIN_NUM_CART_OPT4 2
+#define PIN_NUM_CART_OPT5 5
+#define PIN_NUM_CART_PWRA 15
+#define PIN_NUM_CART_PWRB 21
+
+#define PIN_NUM_BTNA 34
+#define PIN_NUM_BTNB 35
+
+#define PIN_NUM_SDA 23
+#define PIN_NUM_SCL 22
 
 #define TCA_XSHUT3 (1<<0)
 #define TCA_XSHUT1 (1<<1)
@@ -51,9 +72,9 @@ static void i2c_master_init()
 	i2c_port_t i2c_master_port = I2C_NUM_1;
 	i2c_config_t conf;
 	conf.mode = I2C_MODE_MASTER;
-	conf.sda_io_num = GPIO_NUM_23;
+	conf.sda_io_num = PIN_NUM_SDA;
 	conf.sda_pullup_en = GPIO_PULLUP_DISABLE;
-	conf.scl_io_num = GPIO_NUM_22;
+	conf.scl_io_num = PIN_NUM_SCL;
 	conf.scl_pullup_en = GPIO_PULLUP_DISABLE;
 	conf.master.clk_speed = 400000;
 
@@ -90,6 +111,51 @@ void lcd_init() {
 	st7735_ugui_flush();
 }
 
+
+
+#define WVLEN 900
+void printcart_init() {
+	i2s_parallel_buffer_desc_t bufdesc[2][2];
+	i2s_parallel_config_t i2scfg={
+		.gpio_bus={
+			PIN_NUM_CART_NOZD_C, //0
+			PIN_NUM_CART_NOZD_M, //1
+			PIN_NUM_CART_NOZD_Y, //2
+			PIN_NUM_CART_OPTD, //3
+			PIN_NUM_CART_OPT2, //4
+			PIN_NUM_CART_OPT4, //5
+			PIN_NUM_CART_OPT1, //6
+			PIN_NUM_CART_OPT5, //7
+			PIN_NUM_CART_NOZCLK, //8
+			PIN_NUM_CART_OPT3, //9
+			PIN_NUM_CART_PWRA, //10
+			PIN_NUM_CART_PWRB, //11
+			-1, -1, -1, -1 //12-15
+		},
+		.gpio_clk=-1,
+		.bits=I2S_PARALLEL_BITS_16,
+		.clkspeed_hz=16*1000*1000,
+		.bufa=bufdesc[0],
+		.bufb=bufdesc[1],
+	};
+
+	uint16_t *mema=heap_caps_malloc(WVLEN*2, MALLOC_CAP_DMA);
+	uint16_t *memb=heap_caps_malloc(WVLEN*2, MALLOC_CAP_DMA);
+	memset(mema, 0, WVLEN*2);
+	memset(memb, 0, WVLEN*2);
+	bufdesc[0][0].memory=mema;
+	bufdesc[0][0].size=WVLEN*2;
+	bufdesc[1][0].memory=memb;
+	bufdesc[1][0].size=WVLEN*2;
+	bufdesc[0][1].memory=NULL;
+	bufdesc[1][1].memory=NULL;
+
+	i2s_parallel_setup(&I2S1, &i2scfg);
+	vTaskDelay(5);
+	i2s_parallel_start(&I2S1);
+
+	vTaskDelete(NULL);
+}
 
 void peripherals_init() {
 	i2c_master_init();
@@ -128,15 +194,27 @@ void peripherals_init() {
 	lcd_init();
 
 	vl_task_init(vl_dev, 3);
+
+	gpio_config_t io_conf={
+		.mode=GPIO_MODE_INPUT,
+		.pin_bit_mask=((1ULL<<PIN_NUM_BTNA)|(1ULL<<PIN_NUM_BTNB)),
+		.pull_up_en=1,
+	};
+	gpio_config(&io_conf);
+
+	xTaskCreatePinnedToCore(printcart_init, "pixpush", 1024*16, NULL, 8, NULL, 1);
+//	printcart_init();
 }
 
 int app_main(void) {
 	peripherals_init();
 
+	pixel_pusher_init();
 	UG_FontSelect(&FONT_6X8);
 	UG_SetForecolor(C_WHITE);
 	VL53L0X_RangingMeasurementData_t measurement_data[3]={0};
 	while(1) {
+		pixel_pusher_ena(!gpio_get_level(PIN_NUM_BTNA));
 		char buff[256];
 		st7735_ugui_cls();
 

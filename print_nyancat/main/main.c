@@ -12,6 +12,23 @@
 #include "printcart_i2s.h"
 #include "printcart_genwaveform.h"
 
+#define PROTOV1 1
+
+//protov2 gpios
+#define PIN_NUM_CART_NOZD_Y 13
+#define PIN_NUM_CART_NOZD_M 12
+#define PIN_NUM_CART_NOZD_C 27
+#define PIN_NUM_CART_NOZCLK 18
+#define PIN_NUM_CART_OPTD 14
+#define PIN_NUM_CART_OPT1 4
+#define PIN_NUM_CART_OPT2 32
+#define PIN_NUM_CART_OPT3 19
+#define PIN_NUM_CART_OPT4 2
+#define PIN_NUM_CART_OPT5 5
+#define PIN_NUM_CART_PWRA 15
+#define PIN_NUM_CART_PWRB 21
+
+
 #define NYAN_REP_START 138
 #define NYAN_REP_END 206
 extern const uint8_t nyanrgb_start[]   asm("_binary_nyan_84_rgb_start");
@@ -24,8 +41,11 @@ esp_err_t event_handler(void *ctx, system_event_t *event)
     return ESP_OK;
 }
 
+#ifdef PROTOV1
 #define GPIO_BTN (32UL)
-
+#else
+#define GPIO_BTN (34UL)
+#endif
 
 extern int printcart_mem_words_used;
 
@@ -102,7 +122,25 @@ int app_main(void)
 	i2s_parallel_buffer_desc_t bufdesc[2][2];
 
 	i2s_parallel_config_t i2scfg={
+#if PROTOV1
 		.gpio_bus={15, 2, 4, 16, 27, 17,5, 18, 19, 21, 26, 25, 22, 23, -1, -1, -1},
+#else //proto v2
+		.gpio_bus={
+			PIN_NUM_CART_NOZD_C, //0
+			PIN_NUM_CART_NOZD_M, //1
+			PIN_NUM_CART_NOZD_Y, //2
+			PIN_NUM_CART_OPTD, //3
+			PIN_NUM_CART_OPT2, //4
+			PIN_NUM_CART_OPT4, //5
+			PIN_NUM_CART_OPT1, //6
+			PIN_NUM_CART_OPT5, //7
+			PIN_NUM_CART_NOZCLK, //8
+			PIN_NUM_CART_OPT3, //9
+			PIN_NUM_CART_PWRA, //10
+			PIN_NUM_CART_PWRB, //11
+			-1, -1, -1, -1 //12-15
+		},
+#endif
 		.gpio_clk=-1,
 		.bits=I2S_PARALLEL_BITS_16,
 		.clkspeed_hz=16*1000*1000,

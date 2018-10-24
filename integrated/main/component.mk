@@ -7,5 +7,6 @@
 # please read the ESP-IDF documents if you need to do this.
 #
 
+COMPONENT_EMBED_FILES := nyan_84.rgb
 
 

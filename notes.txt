@@ -57,22 +57,22 @@ Connections to cartridge, looking *into printer*:
 -----------------------
 
 Signals (between brackets: LA channel in waveform dumps)
-9: ground
-16: ground
-8: N/C? Goes somewhere on-die, connected with ?caps?
-15: PWRA (0/16)
-4: PWRB (1/17)
-14: [9V] (2) noz data magenta
-2: [9V] (3) noz data cyan
-12: [9V] (4) noz data yellow
-3: [9V] (5) opt data
-7: [16V] (6) opt2 something upper latch
-6: [16V] (7) opt4 something lower latch
-5: [16V] (8) opt1 If pin 3 is low, this indicates that the carriage moves backwards, inverting the bit->nozzle mapping.
 1: [16V] (9) opt5 latch
-11: [16V] (10) noz clk
+2: [9V] (3) noz data cyan
+3: [9V] (5) opt data
+4: PWRB (1/17)
+5: [16V] (8) opt1 If pin 3 is low, this indicates that the carriage moves backwards, inverting the bit->nozzle mapping.
+6: [16V] (7) opt4 something lower latch
+7: [16V] (6) opt2 something upper latch
+8: N/C? Goes somewhere on-die, connected with ?caps?
+9: ground
 10: [16V] (11) opt3 latch
+11: [16V] (10) noz clk
+12: [9V] (4) noz data yellow
 13: Temp sensor, connected to ground. (70'ish ohm at 20c)
+14: [9V] (2) noz data magenta
+15: PWRA (0/16)
+16: ground
 
 PWRA pulses if any of the 1st 4 CMY lines are low for a byte
 PWRB pulses if any of the 2nd 4 CMY lines are low for a byte
