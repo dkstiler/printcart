@@ -31,16 +31,16 @@
 #define PIN_NUM_CS	 26
 #define PIN_NUM_DC	 0
 
-#define PIN_NUM_CART_NOZD_Y 13
 #define PIN_NUM_CART_NOZD_M 12
 #define PIN_NUM_CART_NOZD_C 27
-#define PIN_NUM_CART_NOZCLK 18
+#define PIN_NUM_CART_NOZD_Y 13
 #define PIN_NUM_CART_OPTD 14
-#define PIN_NUM_CART_OPT1 4
 #define PIN_NUM_CART_OPT2 32
-#define PIN_NUM_CART_OPT3 19
 #define PIN_NUM_CART_OPT4 2
+#define PIN_NUM_CART_OPT1 4
 #define PIN_NUM_CART_OPT5 5
+#define PIN_NUM_CART_NOZCLK 18
+#define PIN_NUM_CART_OPT3 19
 #define PIN_NUM_CART_PWRA 15
 #define PIN_NUM_CART_PWRB 21
 
@@ -134,7 +134,7 @@ void printcart_init() {
 		},
 		.gpio_clk=-1,
 		.bits=I2S_PARALLEL_BITS_16,
-		.clkspeed_hz=16*1000*1000,
+		.clkspeed_hz=16*1000*1000, //note: ignored for now by driver?
 		.bufa=bufdesc[0],
 		.bufb=bufdesc[1],
 	};
@@ -154,6 +154,7 @@ void printcart_init() {
 	vTaskDelay(5);
 	i2s_parallel_start(&I2S1);
 
+	printf("Printcart driver inited\n");
 	vTaskDelete(NULL);
 }
 
@@ -202,8 +203,8 @@ void peripherals_init() {
 	};
 	gpio_config(&io_conf);
 
-	xTaskCreatePinnedToCore(printcart_init, "pixpush", 1024*16, NULL, 8, NULL, 1);
-//	printcart_init();
+	//init print cart on core 0
+	xTaskCreatePinnedToCore(printcart_init, "printcart_init", 1024*16, NULL, 8, NULL, 1);
 }
 
 int app_main(void) {

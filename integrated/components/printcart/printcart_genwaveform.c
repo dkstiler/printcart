@@ -39,6 +39,7 @@ int IRAM_ATTR printcart_add_waveform(uint16_t *w, const uint16_t *tp, const uint
 	int p=0;
 
 	int i;
+	//See if we actually need to output anything
 	for (i=0; i<14; i++) {
 		if (c[i]!=0xff) break;
 		if (m[i]!=0xff) break;
@@ -49,45 +50,56 @@ int IRAM_ATTR printcart_add_waveform(uint16_t *w, const uint16_t *tp, const uint
 	//ets_printf("%d\n", is_empty);
 
 	for (int j=0; j<14; j++) {
-		int bit=-1;
+		uint16_t bit=0;
 		int ov=0;
 		int power=(c[j]&m[j]&y[j]);
+		//Only enable power if needed
+		uint16_t mask=0xffff;
+		mask&=~(1<<3); //seg ena is generated, so mask out in template
+		mask&=~((1<<0)|(1<<1)|(1<<2)); //same for cmy lines
+		//mask out power lines if not needed
+		if ((power&0x0f)==0x0f) mask&=~(1<<10);
+		if ((power&0xf0)==0xF0) mask&=~(1<<11);
+		uint16_t optdata_sel=0;
+		if (j==13) { //last one
+			optdata_sel=(1<<14);
+		} else {
+			optdata_sel=(1<<15);
+		}
+
 		for (int i=0; i<l; i++) {
+			if (is_empty) {
+				//no need to output anything
+				w[p^1]=0;
+				p++;
+				continue;
+			}
 			uint16_t v=tp[i];
 			//Increase bitno if change on 1st 2 lines
 			if ((v&(1<<0))!=ov) {
-				bit++;
+				if (!bit) {
+					bit=1; 
+				} else {
+					bit<<=1;
+				}
 				ov=v&(1<<0);
 			}
+			int en=v&((1<<0)|(1<<1)); //only send out bit if bits 0 or 1 are 1
+			
+			v&=mask;
 			
 			//Set bit values for [cmy] streams
-			int en=v&((1<<0)|(1<<1)); //only send out bit if bits 0 or 1 are 1
-			v&=~((1<<0)|(1<<1)|(1<<2));
-			if (en && bit<8 && bit>=0) {
-				if (c[j]&(1<<bit)) v|=(1<<0);
-				if (m[j]&(1<<bit)) v|=(1<<1);
-				if (y[j]&(1<<bit)) v|=(1<<2);
+			if (en) {
+				if (c[j]&bit) v|=(1<<0);
+				if (m[j]&bit) v|=(1<<1);
+				if (y[j]&bit) v|=(1<<2);
 			}
-
-			//Only enable power if needed
-			if ((power&0x0f)==0x0f) v&=~(1<<10);
-			if ((power&0xf0)==0xF0) v&=~(1<<11);
-
 			//Select correct value for seg ena
-			v&=~(1<<3);
-			if (j==13) { //last one
-				if (v&(1<<14)) v|=(1<<3);
-			} else {
-				if (v&(1<<15)) v|=(1<<3);
-			}
-			if (is_empty) v=0;
+			if (v&optdata_sel) v|=(1<<3);
 			w[p^1]=v;
 			p++;
 		}
-		for (int i=0; i<l; i++) {
-			w[p^1]=0;
-			p++;
-		}
+		i+=8; //space after data
 	}
 	//Always return an even amount of words
 	return (p+1)&~1;
