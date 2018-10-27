@@ -24,7 +24,8 @@ void IRAM_ATTR printcart_line_set_pixel(uint8_t *l, int p, int col) {
 	if (p>(7*14)) return;
 	int byteno=bo[col][p%14];
 	int bitno=p/14;
-	l[byteno]&=~(1<<bitno);
+//	if ((bitno&1)==0)
+		l[byteno]&=~(1<<bitno);
 }
 
 
@@ -84,11 +85,13 @@ int IRAM_ATTR printcart_add_waveform(uint16_t *w, const uint16_t *tp, const uint
 			w[p^1]=v;
 			p++;
 		}
-		for (int i=0; i<l; i++) {
+		for (int i=0; i<8; i++) {
 			w[p^1]=0;
 			p++;
 		}
 	}
+
+
 	//Always return an even amount of words
 	return (p+1)&~1;
 }

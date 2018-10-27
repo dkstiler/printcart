@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script language="javascript">
+
+var scaleX=40;
+var scaleY=40;
+var signalH=30;
+var notimeslots=32;
+
+function myFunction() {
+    document.getElementById("demo").innerHTML = "Paragraph changed.";
+}
+
+function textvals() {
+	var text=document.getElementById("hex").value;
+	var sp=text.split(",");
+	var ret=[];
+	for (var x=0; x<sp.length; x++) {
+		ret[x]=parseInt(sp[x]);
+	}
+	return ret;
+}
+
+
+function cvclick(evt) {
+	var x=parseInt(evt.offsetX/scaleX);
+	var y=parseInt(evt.offsetY/scaleY);
+	var f=textvals();
+	f[x]^=(1<<y);
+
+	var s="";
+	for (var i=0; i<f.length; i++) {
+		if (i!=0) s+=",";
+		s+="0x"+f[i].toString(16);
+	}
+	document.getElementById("hex").value=s;
+	drawcanvas();
+	if (document.getElementById("directsend").checked) sendWaveform();
+}
+
+
+function drawcanvas() {
+	var c=document.getElementById("mycanvas");
+	var ctx=c.getContext("2d");
+	ctx.clearRect(0,0,scaleX*notimeslots, scaleY*16);
+	var vals=textvals();
+	ctx.lineWidth="1";
+	ctx.fillStyle="#e0e0e0";
+	for (var x=0; x<notimeslots; x++) {
+		ctx.beginPath();
+		ctx.moveTo(x*scaleX, 0);
+		ctx.lineTo(x*scaleX, 16*scaleY);
+		ctx.stroke();
+	}
+	ctx.lineWidth="3";
+	ctx.fillStyle="#000000"
+	for (var y=0; y<16; y++) {
+		ctx.beginPath();
+		for (var x=0; x<notimeslots; x++) {
+			var bit=(vals[x]&(1<<y))?0:1; //warning - inverted to make drawing easier
+			if (x==0) {
+				ctx.moveTo(x*scaleX, y*scaleY+signalH*bit);
+			} else {
+				ctx.lineTo(x*scaleX, y*scaleY+signalH*bit);
+			}
+			ctx.lineTo((x+1)*scaleX, y*scaleY+signalH*bit);
+		}
+		ctx.stroke();
+	}
+	ctx.fillStyle="red";
+	ctx.font="16px sans"
+	var desc=["bit toggle1", "bit toggle2", "bit valid", "na", "opt2", "opt4", "opt1", "opt5", "noz clk", "opt3", "pwra", "pwrb", "na","na","optd last", "optd norm"];
+	for (var y=0; y<16; y++) {
+		ctx.fillText(desc[y], 10, (y+0.5)*scaleY);
+	}
+}
+
+function sendWaveform() {
+	var xhr = new XMLHttpRequest();
+//	xhr.onload = function(){ alert (xhr.responseText); } // success case
+	xhr.onerror = function(){ alert (xhr.responseText); } // failure case
+	xhr.open("POST", "waveform.cgi", true);
+	var s="wv=";
+	var v=textvals();
+	//Format to "xxxx,yyyy,zzzz" because I'm too lazy to do difficult parsing in C code on the other end
+	for (var i=0; i<v.length; i++) {
+		var h="0000"+v[i].toString(16)+",";
+		s+=h.slice(-5);
+	}
+	xhr.send(s);
+	return false;
+}
+
+window.onload=function(e) {
+	drawcanvas();
+	var c=document.getElementById("mycanvas");
+	c.onclick=cvclick;
+}
+
+</script>
+</head>
+<body>
+<p>
+<canvas id="mycanvas" width="1280" height="640"></canvas>
+<br>
+<textarea id="hex" rows="4" cols="80">
+0x2,0xc005,0xc105,0xc146,0x46,0x4005,0x4105,0x4116,0x16,0x4005,0x4105,0x4306,0x606,0x4405,0x4505,0x4526,0x426,0x406,0x4000,0x4000,0x4080,0x880,0x800,0x800,0x800,0x800,0x800
+</textarea><br>
+<button onclick="sendWaveform()">Send!</button>
+<input type="checkbox" id="directsend"><label for="directsend">Send on change</label>
+
+</body>
+</html>

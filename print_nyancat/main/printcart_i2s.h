@@ -31,4 +31,5 @@ void i2s_parallel_start(i2s_dev_t *dev);
 
 void i2s_push_pixels(i2s_dev_t *dev, uint8_t *pixbuf);
 
+void i2s_set_wfdesc(uint16_t *wf_desc, int len);
 #endif

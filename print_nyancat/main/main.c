@@ -11,35 +11,33 @@
 #include "soc/timer_group_struct.h"
 #include "printcart_i2s.h"
 #include "printcart_genwaveform.h"
+#include "webserver.h"
 
-#define PROTOV1 1
+//#define PROTOV1 1
 
 //protov2 gpios
-#define PIN_NUM_CART_NOZD_Y 13
 #define PIN_NUM_CART_NOZD_M 12
 #define PIN_NUM_CART_NOZD_C 27
-#define PIN_NUM_CART_NOZCLK 18
+#define PIN_NUM_CART_NOZD_Y 13
 #define PIN_NUM_CART_OPTD 14
-#define PIN_NUM_CART_OPT1 4
 #define PIN_NUM_CART_OPT2 32
-#define PIN_NUM_CART_OPT3 19
 #define PIN_NUM_CART_OPT4 2
+#define PIN_NUM_CART_OPT1 4
 #define PIN_NUM_CART_OPT5 5
+#define PIN_NUM_CART_NOZCLK 18
+#define PIN_NUM_CART_OPT3 19
 #define PIN_NUM_CART_PWRA 15
+//#define PIN_NUM_CART_PWRB 25 //proto hack
 #define PIN_NUM_CART_PWRB 21
 
 
 #define NYAN_REP_START 138
+//#define NYAN_REP_START 0
 #define NYAN_REP_END 206
 extern const uint8_t nyanrgb_start[]   asm("_binary_nyan_84_rgb_start");
-extern const uint8_t nyanrgb_end[]     asm("_binary_ nyan_84_rgb_end");
+extern const uint8_t nyanrgb_end[]     asm("_binary_nyan_84_rgb_end");
 
 #define SCALE 4
-
-esp_err_t event_handler(void *ctx, system_event_t *event)
-{
-    return ESP_OK;
-}
 
 #ifdef PROTOV1
 #define GPIO_BTN (32UL)
@@ -78,7 +76,7 @@ void pixel_pusher_task(void *arg) {
 			}
 			for (int x=14; x<14+84; x++) {
 				for (int c=0; c<3; c++) {
-					if ((255-*p[c])>(rand()&0x3ff)) {
+					if ((255-*p[c])>(rand()&0xff)) {
 						if (ypos[c]>=0) printcart_line_set_pixel(&pixels[c*14], x, c);
 					}
 					p[c]+=3;
@@ -88,6 +86,7 @@ void pixel_pusher_task(void *arg) {
 		i2s_push_pixels(&I2S1, pixels);
 	}
 }
+
 
 
 int app_main(void)
@@ -148,7 +147,7 @@ int app_main(void)
 		.bufb=bufdesc[1],
 	};
 
-#define WVLEN 900
+#define WVLEN 750
 	uint16_t *mema=calloc(WVLEN, 2);
 	uint16_t *memb=calloc(WVLEN, 2);
 	bufdesc[0][0].memory=mema;
@@ -157,12 +156,17 @@ int app_main(void)
 	bufdesc[1][0].size=WVLEN*2;
 	bufdesc[0][1].memory=NULL;
 	bufdesc[1][1].memory=NULL;
+	
+	webserver_init();
 
     i2s_parallel_setup(&I2S1, &i2scfg);
 	vTaskDelay(5);
 	i2s_parallel_start(&I2S1);
 
 	xTaskCreatePinnedToCore(pixel_pusher_task, "pixpush", 1024*16, NULL, 7, NULL, 1);
+	vTaskDelay(500);
+	printf("%d words used\n", printcart_mem_words_used);
+	
 	return 0;
 }
 
