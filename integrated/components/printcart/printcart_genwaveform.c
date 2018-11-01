@@ -20,8 +20,9 @@ void IRAM_ATTR printcart_line_set_pixel(uint8_t *l, int p, int col) {
 		{11,2,7,12,3,8,13,4,9,0,5,10,1,6},
 		{0,5,10,1,6,11,2,7,12,3,8,13,4,9}
 	};
-	if (p<14) return;
-	if (p>(7*14)) return;
+//	if (p<14) return;
+//	if (p>(7*14)) return;
+	if (p>(8*14)) return;
 	int byteno=bo[col][p%14];
 	int bitno=p/14;
 	l[byteno]&=~(1<<bitno);
