@@ -67,6 +67,7 @@ mpu9250_dev_t *mpu;
 
 uint16_t *fb[160*80];
 
+#define FIXED_SPEED (186<<FP_SHIFT)
 
 static void i2c_master_init()
 {
@@ -114,7 +115,8 @@ void lcd_init() {
 
 
 
-#define WVLEN 900
+//#define WVLEN 900
+#define WVLEN 1500
 void printcart_init() {
 	i2s_parallel_buffer_desc_t bufdesc[2][2];
 	i2s_parallel_config_t i2scfg={
@@ -278,10 +280,86 @@ void do_mona() {
 
 
 			pixel_pusher_mona_set_stripe(stripe);
-			pixel_pusher_set_speed_pos(0,0,1<<8,1<<8,1);
+			pixel_pusher_set_speed_pos(0,0,FIXED_SPEED,FIXED_SPEED,1);
 			wait_btn_rel();
-			pixel_pusher_set_speed_pos(0,0,1<<8,1<<8,0);
+			pixel_pusher_set_speed_pos(0,0,FIXED_SPEED,FIXED_SPEED,0);
 			stripe++;
+		}
+		vTaskDelay(50/portTICK_RATE_MS);
+	}
+}
+
+float hyp_vx, hyp_vy;
+float hyp_x, hyp_y;
+float startx, starty;
+
+const float const_int_rate=0.5; //1 for more noise, 0 for smoother
+
+void do_imu_magic(int ena) {
+	static int prev_ena=0;
+	float int_rate=const_int_rate;
+	static int start_cd=0;
+
+	VL53L0X_RangingMeasurementData_t measurement_data[3]={0};
+	vl_task_get_results(&measurement_data[0]);
+	int meas_x=measurement_data[1].RangeMilliMeter;
+	int meas_y=-measurement_data[0].RangeMilliMeter;
+
+	if (!prev_ena && ena) {
+		hyp_vx=0;
+		hyp_vy=0;
+		int_rate=0.7;
+		start_cd=20;
+		startx=meas_x;
+		starty=meas_y;
+	}
+	if (start_cd) {
+		start_cd--;
+		startx=meas_x;
+		starty=meas_y;
+	}
+
+	prev_ena=ena;
+
+	meas_x-=startx;
+	meas_y-=starty;
+
+	int meas_vx=meas_x-hyp_x;
+	int meas_vy=meas_y-hyp_y;
+
+	hyp_vx=(meas_vx*int_rate)+((hyp_vx*(1-int_rate)));
+	hyp_vy=(meas_vy*int_rate)+((hyp_vy*(1-int_rate)));
+
+	//update pos guess
+	hyp_x+=hyp_vx;
+	hyp_y+=hyp_vy;
+
+//	printf("x=% 6.2f y=% 6.2f vx=% 6.2f vy=% 6.2f mx=%d my=%d\n", hyp_x, hyp_y, hyp_vx, hyp_vy, meas_x, meas_y);
+	
+//	ena=0;
+	pixel_pusher_set_speed_pos((hyp_x-20)*(1<<FP_SHIFT),(hyp_y-20)*(1<<FP_SHIFT),hyp_vx*(1<<FP_SHIFT),hyp_vy*(1<<FP_SHIFT),ena);
+}
+
+void do_mona_imu() {
+	st7735_ugui_cls();
+	UG_SetForecolor(C_YELLOW);
+	UG_PutString(0,0, "MONA_IMU");
+	st7735_ugui_flush();
+	pixel_pusher_set_type(PP_MONA_IMU);
+	int b=0;
+	wait_btn_rel();
+	while(1) {
+		b=get_cur_btn();
+		if (b==1) {
+			wait_btn_rel();
+			return;
+		} else if (b==2) {
+			//flush queue
+			for (int i=0; i<20; i++) do_imu_magic(1);
+			while(get_cur_btn()) {
+				do_imu_magic(1);
+			}
+			do_imu_magic(0);
 		}
 		vTaskDelay(50/portTICK_RATE_MS);
 	}
@@ -306,9 +384,9 @@ void do_mine() {
 			UG_SetForecolor(C_PINK);
 			UG_PutString(0,0, "MINE MINE MINE");
 			st7735_ugui_flush();
-			pixel_pusher_set_speed_pos(0,0,1<<8,1<<8,1);
+			pixel_pusher_set_speed_pos(0,0,FIXED_SPEED,FIXED_SPEED,1);
 			wait_btn_rel();
-			pixel_pusher_set_speed_pos(0,0,1<<8,1<<8,0);
+			pixel_pusher_set_speed_pos(0,0,FIXED_SPEED,FIXED_SPEED,0);
 			st7735_ugui_cls();
 			UG_SetForecolor(C_YELLOW);
 			UG_PutString(0,0, "MINE!");
@@ -337,9 +415,9 @@ void do_nyancat() {
 			UG_SetForecolor(C_PINK);
 			UG_PutString(0,0, "NYAN NYAN NYAN NYAN");
 			st7735_ugui_flush();
-			pixel_pusher_set_speed_pos(0,0,1<<8,1<<8,1);
+			pixel_pusher_set_speed_pos(0,0,FIXED_SPEED,FIXED_SPEED,1);
 			wait_btn_rel();
-			pixel_pusher_set_speed_pos(0,0,1<<8,1<<8,0);
+			pixel_pusher_set_speed_pos(0,0,FIXED_SPEED,FIXED_SPEED,0);
 			st7735_ugui_cls();
 			UG_SetForecolor(C_YELLOW);
 			UG_PutString(0,0, "NYAN NYAN NYAN NYAN");
@@ -431,9 +509,9 @@ void do_colorcopy() {
 			pixel_pusher_color_set(rgb[0][0], rgb[0][1], rgb[0][2], 0);
 			pixel_pusher_color_set(rgb[1][0], rgb[1][1], rgb[1][2], 1);
 
-			pixel_pusher_set_speed_pos(0, 0, 1<<8, 1<<8, 1);
+			pixel_pusher_set_speed_pos(0, 0, FIXED_SPEED, FIXED_SPEED, 1);
 			wait_btn_rel();
-			pixel_pusher_set_speed_pos(42<<8, 0, 1<<8, 1<<8, 0);
+			pixel_pusher_set_speed_pos(42<<FP_SHIFT, 0, FIXED_SPEED, FIXED_SPEED, 0);
 		}
 	}
 	tca9534_change_output(tca, TCA_WHLED, 0);
@@ -456,6 +534,7 @@ void ui_proc(void *arg) {
 		"COLOR COPY",
 		"MONA",
 		"MINE!",
+		"MONA_IMU",
 		NULL
 	};
 
@@ -483,6 +562,7 @@ void ui_proc(void *arg) {
 			if (sel==1) do_colorcopy();
 			if (sel==2) do_mona();
 			if (sel==3) do_mine();
+			if (sel==4) do_mona_imu();
 		}
 	}
 
@@ -490,7 +570,7 @@ void ui_proc(void *arg) {
 }
 
 
-#define OFF_MUL (64<<8)
+#define OFF_MUL (64<<FP_SHIFT)
 #define SPEED 110
 
 int app_main(void) {
@@ -511,9 +591,14 @@ int app_main(void) {
 	while(1) {
 		int ena=(!gpio_get_level(PIN_NUM_BTNA));
 		char buff[256];
-		st7735_ugui_cls();
+//		st7735_ugui_cls();
 		vl_task_get_results(&measurement_data[0]);
 
+		printf("%llu: %d %d %d\n", esp_timer_get_time(), 
+				measurement_data[0].RangeMilliMeter,
+				measurement_data[1].RangeMilliMeter,
+				measurement_data[2].RangeMilliMeter);
+#if 0
 		for (int x=0; x<3; x++) {
 			diff[x]=measurement_data[x].RangeMilliMeter-prev_meas[x];
 			prev_meas[x]=measurement_data[x].RangeMilliMeter;
@@ -524,10 +609,10 @@ int app_main(void) {
 			start[0]=measurement_data[1].RangeMilliMeter;
 			start[1]=measurement_data[0].RangeMilliMeter;
 		}
-
-		pixel_pusher_set_speed_pos((measurement_data[1].RangeMilliMeter-start[0])*OFF_MUL, 
-				(measurement_data[0].RangeMilliMeter-start[1])*OFF_MUL,
-				diff[1]*SPEED, diff[0]*SPEED, ena);
+#endif
+//		pixel_pusher_set_speed_pos((measurement_data[1].RangeMilliMeter-start[0])*OFF_MUL, 
+//				(measurement_data[0].RangeMilliMeter-start[1])*OFF_MUL,
+//				diff[1]*SPEED, diff[0]*SPEED, ena);
 
 /*
 		sprintf(buff, "%d / %d / %d mm\n", measurement_data[0].RangeMilliMeter, measurement_data[1].RangeMilliMeter, measurement_data[2].RangeMilliMeter);
@@ -537,13 +622,22 @@ int app_main(void) {
 		ESP_ERROR_CHECK(tcs3472_get_input(tcs, &cr, &cg, &cb, &cc));
 		sprintf(buff, "RGBC %d %d %d %d\n", cr, cg, cb, cc);
 		UG_PutString(0, 8, buff);
-
-		mpu9250_accel_tp mpumeas[128];
-		int mpuct=mpu9250_read_fifo(mpu, mpumeas, 128);
-		sprintf(buff, "Accel ct %d\n%d %d %d\n", mpuct, mpumeas[0].accelx, mpumeas[0].accely, mpumeas[0].accelz);
-		UG_PutString(0, 16, buff);
 */
-		st7735_ugui_flush();
+/*
+		mpu9250_accel_tp mpumeas[128];
+		uint64_t ts=esp_timer_get_time();
+		int mpuct=mpu9250_read_fifo(mpu, mpumeas, 128);
+		for (int i=0; i<mpuct; i++) {
+			printf("%llu: %d/%d % 6d % 6d % 6d % 6d % 6d % 5d\n", esp_timer_get_time(),
+				i, mpuct, mpumeas[i].accelx, mpumeas[i].accely, mpumeas[i].accelz, mpumeas[i].gyrox, mpumeas[i].gyroy, mpumeas[i].gyroz);
+		}
+*/
+//		sprintf(buff, "Accel ct %d\n%d %d %d\n", mpuct, mpumeas[0].accelx, mpumeas[0].accely, mpumeas[0].accelz);
+//		UG_PutString(0, 16, buff);
+
+//		st7735_ugui_flush();
+
+
 		prev_ena=ena;
 	}
 #endif

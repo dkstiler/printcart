@@ -4,6 +4,7 @@
 #include "freertos/queue.h"
 #include "printcart_genwaveform.h"
 #include "printcart_i2s.h"
+#include "pixelpusher.h"
 #include <string.h>
 
 #define SCALE 4
@@ -32,9 +33,6 @@ typedef struct{
 	int end_x;
 	int end_y;
 } pixelpusher_state_t;
-
-//shift fixed points to right by this to get int val
-#define FP_SHIFT 8
 
 static pixelpusher_state_t ppstates[2];
 static pixelpusher_state_t * volatile ppstate=&ppstates[0];
@@ -159,7 +157,6 @@ static void pixel_pusher_mona(pixelpusher_state_t *st, uint8_t *pixels) {
 	if (!st->ena) return;
 	//Offsets for nozzles
 	xpos[0]=st->x >> FP_SHIFT;
-	//Repeat tail infinitely
 	xpos[2]=(xpos[0]-CMY_OFF*2)/SCALE;
 	xpos[1]=(xpos[0]-CMY_OFF)/SCALE;
 	xpos[0]=xpos[0]/SCALE;
@@ -179,6 +176,34 @@ static void pixel_pusher_mona(pixelpusher_state_t *st, uint8_t *pixels) {
 }
 
 
+static void pixel_pusher_mona_imu(pixelpusher_state_t *st, uint8_t *pixels) {
+	int xpos[3];
+	if (!st->ena) return;
+	//Offsets for nozzles
+	xpos[0]=(st->x*20) >> FP_SHIFT;
+	xpos[2]=(xpos[0]-CMY_OFF*2);
+	xpos[1]=(xpos[0]-CMY_OFF);
+	int ypos=((st->y*20) >> FP_SHIFT);
+//	printf("Mona: %d %d\n", xpos[0], ypos);
+	const uint8_t *p[3]; //position in image data for all 3 nozzles
+	for (int c=0; c<3; c++) {
+		p[c]=&mona_start[(xpos[c])*560*3+c + ypos*3];
+	}
+	for (int x=14; x<14+84; x++) {
+		for (int c=0; c<3; c++) {
+			if ((255-*p[c])>(rand()&0xff)) { //dither
+				if (xpos[c]>=0 && xpos[c]<864 && ypos>=0 && ypos<560) {
+					printcart_line_set_pixel(&pixels[c*14], x, c);
+				}
+			}
+			p[c]+=3;
+		}
+		ypos++;
+	}
+}
+
+
+
 volatile int sel_type=0;
 
 void pixel_pusher_set_type(int type) {
@@ -194,16 +219,17 @@ static void pixel_pusher_task(void *arg) {
 		st=ppstate; //get current state so other task can write into the other one
 		//clear pixel data
 		memset(pixels, 0xff, 14*3);
-		if (((st->x >> FP_SHIFT)!=(prev_x >> FP_SHIFT))) {
+//		if (((st->x >> (FP_SHIFT-2))!=(prev_x >> (FP_SHIFT-2)))) {
 			if (sel_type==0) pixel_pusher_nyancat(st, pixels);
 			if (sel_type==1) pixel_pusher_color(st, pixels);
 			if (sel_type==2) pixel_pusher_mona(st, pixels);
 			if (sel_type==3) pixel_pusher_mine(st, pixels);
-		}
+			if (sel_type==4) pixel_pusher_mona_imu(st, pixels);
+//		}
 		i2s_push_pixels(&I2S1, pixels);
 		prev_x=st->x;
-		st->y+=st->vy;
 		st->x+=st->vx;
+		st->y+=st->vy;
 		if (st->ena==0 && old_ena==1) {
 			st->end_x=st->x;
 			st->end_y=st->y;
@@ -219,10 +245,12 @@ void pixel_pusher_set_speed_pos(int x, int y, int vx, int vy, int ena) {
 	if (ppstate==&ppstates[0]) ws=&ppstates[1]; else ws=&ppstates[0];
 	ws->x=x;
 	ws->y=y;
-	ws->vx=vx;
-	ws->vy=vy;
+	ws->vx=vx/186;
+	ws->vy=vy/186;
 	ws->ena=ena;
-	printf("Diff % 5d vs % 5d, % 5d vs % 5d vx %d vy %d ena %d x %d y %d\n", ppstate->x-last_x, x-last_x, ppstate->y-last_y, y-last_y, vx, vy, ws->ena, x>>FP_SHIFT, y>>FP_SHIFT);
+//	printf("Diff hyp vx % 5d vs real % 5d, % 5d vs % 5d vx %d vy %d ena %d x %d y %d\n", ppstate->x-last_x, x-last_x, ppstate->y-last_y, y-last_y, vx, vy, ws->ena, x>>FP_SHIFT, y>>FP_SHIFT);
+//	printf("Diff hyp vx % 5d vs real % 5d, hyp vy % 5d vs real % 5d\n", ppstate->x-last_x, vx, ppstate->y-last_y, vy);
+//	printf("x %d y %d", x>>FP_SHIFT, y>>FP_SHIFT);
 	ppstate=ws; //swap
 	last_x=x;
 	last_y=y;

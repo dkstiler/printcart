@@ -9,6 +9,8 @@ typedef struct {
 	int16_t accely;
 	int16_t accelz;
 	int16_t gyrox;
+	int16_t gyroy;
+	int16_t gyroz;
 } mpu9250_accel_tp;
 
 typedef struct {

@@ -10,6 +10,7 @@
 //Header in the wfm file. No idea what's in there and we don't care, just skip iut.
 #define DATA_OFF 0xC90
 
+
 /* Read in (actually, mmap) the wfm file. Returns pointer to the buffer, fills len with length of the thing. */
 void *get_wv_mem(char *file, int *len) {
 	struct stat statbuf;
@@ -127,7 +128,7 @@ void print_bits(uint8_t *bits, int len, int alt_order, uint8_t *power) {
 		for (int i=0; i<14; i++) {
 			int col=0;
 			for (int c=0; c<3; c++) {
-				if (bits[c*32+bo[c][i]] & j) col|=(1<<c);
+				if (bits[c*14+bo[c][i]] & j) col|=(1<<c);
 			}
 			printf("\033[%dm", lut[7-col]);
 			printf(col==7?"..":"██");
@@ -154,6 +155,62 @@ void print_bits(uint8_t *bits, int len, int alt_order, uint8_t *power) {
 
 }
 
+typedef struct {
+	int c;
+	int bit;
+	int order;
+} bw_nozinfo_t;
+
+bw_nozinfo_t ni[]={
+	{2,0,1},
+	{2,1,1},
+	{0,0,1},
+	{0,1,1},
+	{1,0,1},
+	{1,1,1},
+	{2,4,1},
+	{2,5,1},
+	{0,4,1},
+	{0,5,1},
+	{1,4,1},
+	{1,5,1},
+	{2,2,0},
+	{2,3,0},
+	{0,2,0},
+	{0,3,0},
+	{1,2,0},
+	{1,3,0},
+	{2,6,0},
+	{2,7,0},
+	{0,6,0},
+	{0,7,0},
+	{1,6,0},
+	{1,7,0},
+	{-1,-1,-1}
+};
+
+void print_bits_bw(uint8_t *bits, int alt_order, uint8_t *power) {
+	if (alt_order) alt_order=1;
+	int bo[2][14]={
+		{4,12,10,2,8,0,6,13,7,1,9,3,11,5},
+		{13,7,1,9,3,11,5,4,12,10,2,8,0,6},
+	};
+
+	//Decode the bits in the order needed
+
+	for (int j=0; ni[j].c!=-1; j++) {
+		int bmsk=(1<<ni[j].bit);
+		for (int i=0; i<14; i++) {
+			printf((bits[ni[j].c*14+bo[ni[j].order][i^alt_order]] & bmsk)?"%02d":"██", i);
+		}
+	}
+
+//	printf("\033[37m%s", alt_order?"A":"N");
+	printf("\n");
+}
+
+
+
 //LA channels for various signals
 #define BIT_M 2
 #define BIT_C 3
@@ -162,7 +219,7 @@ void print_bits(uint8_t *bits, int len, int alt_order, uint8_t *power) {
 
 int main(int argc, char **argv) {
 	if (argc<2) {
-		printf("Usage: %s file.wmv col > out.txt\n", argv[0]);
+		printf("Usage: %s file.wmv [colidx|'b'] > out.txt\n", argv[0]);
 		exit(0);
 	}
 	int len=0;
@@ -184,7 +241,12 @@ int main(int argc, char **argv) {
 	//Select which channel to decode: magenta, cyan or yellow.
 	int mybits[]={BIT_M, BIT_C, BIT_Y};
 	int colmask=7;
-	if (argc>=3) colmask=atoi(argv[2]);
+	if (argc>=3) {
+		colmask=atoi(argv[2]);
+		if (argv[2][0]=='b') {
+			colmask=0xff;
+		}
+	}
 
 
 	//Decode
@@ -194,7 +256,7 @@ int main(int argc, char **argv) {
 	int last_byte=0;
 	int alt_order=0;
 	//This array will contain the bits that are clocked out on the selected line. No re-ordering is done here yet; the bits are stored here sequentially.
-	uint8_t bits[32*3];
+	uint8_t bits[14*3];
 	uint8_t power[14]={0};
 	for (int i=1; i<len; i++) {
 		if (rising_edge(wfm, i, BIT_CLK)) { //clock goes up
@@ -202,19 +264,23 @@ int main(int argc, char **argv) {
 			for (int c=0; c<3; c++) {
 				if (colmask&(1<<c)) {
 					//Data at rising clock edge
-					set_bit(&bits[c*32], bit, get_bit(wfm, i+dofs, mybits[c]));
+					set_bit(&bits[c*14], bit, get_bit(wfm, i+dofs, mybits[c]));
 					//Data at falling clock edge
-					set_bit(&bits[c*32], bit+1, get_bit(wfm, i+dofs+(clk/2), mybits[c]));
+					set_bit(&bits[c*14], bit+1, get_bit(wfm, i+dofs+(clk/2), mybits[c]));
 				} else {
-					set_bit(&bits[c*32], bit, 1);
-					set_bit(&bits[c*32], bit+1, 1);
+					set_bit(&bits[c*14], bit, 1);
+					set_bit(&bits[c*14], bit+1, 1);
 				}
 			}
 			bit+=2;
 			if ((bit&7)==0 && last_byte) {
-//			if (bit==14*8) {
-				print_bits(bits, bit, alt_order>2, power);
-
+				if (bit==14*8) {
+					if (colmask==0xff) {
+						print_bits_bw(bits, alt_order>2, power);
+					} else {
+						print_bits(bits, bit, alt_order>2, power);
+					}
+				}
 				bit=0;
 				last_byte=0;
 				alt_order=0;
@@ -224,8 +290,10 @@ int main(int argc, char **argv) {
 		if (rising_edge(wfm, i, 8)) {
 			if (get_bit(wfm, i+(clk/4), 5)) alt_order++;
 		}
-		if (rising_edge(wfm, i, 6)) {
-			if (get_bit(wfm, i+(clk/4), 5)) last_byte=1;
+		if (rising_edge(wfm, i, 9)) {
+			if (get_bit(wfm, i+(clk/32), 5)) { //was clk/4
+				last_byte=1;
+			}
 		}
 		if (rising_edge(wfm, i+(clk*3), 0)) power[bit/8]|=1;
 		if (rising_edge(wfm, i+(clk*3), 1)) power[bit/8]|=2;

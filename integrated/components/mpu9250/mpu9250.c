@@ -55,10 +55,10 @@ esp_err_t mpu9250_start(mpu9250_dev_t *dev, int samp_div) {
 	setreg(dev, 106, 0x0C);		//reset fifo, i2c master, signal paths
 	vTaskDelay(10);
 	setreg(dev, 25, samp_div);	//Sample divider
-	setreg(dev, 26, 0x40);		//fifo replaces old data, no dlpf, no fsync
+	setreg(dev, 26, 0x41);		//fifo replaces old data, dlpf=1, no fsync
 	setreg(dev, 27, 0);			//gyro def, gyro bw = 250Hz
 	setreg(dev, 28, 0);			//accel 2G
-	setreg(dev, 35, 0x48);		//fifo: emit accel data plus x gyro
+	setreg(dev, 35, 0x78);		//fifo: emit accel data plus xyz gyros
 	setreg(dev, 36, 0x00);		//no slave
 	setreg(dev, 106, 0x40);		//fifo: enable
 	printf("MPU9250 found and initialized.\n");
@@ -70,7 +70,7 @@ esp_err_t mpu9250_start(mpu9250_dev_t *dev, int samp_div) {
 int mpu9250_read_fifo(mpu9250_dev_t *dev, mpu9250_accel_tp *meas, int maxct) {
 	int i;
 	int no;
-	uint8_t buf[8];
+	uint8_t buf[6*2];
 	i2c_cmd_handle_t cmd;
 	esp_err_t ret;
 	no=(getreg(dev, 114)<<8);
@@ -80,7 +80,7 @@ int mpu9250_read_fifo(mpu9250_dev_t *dev, mpu9250_accel_tp *meas, int maxct) {
 		return 0; //huh?
 	}
 //	printf("FIFO: %d\n", no);
-	no=no/8; //bytes -> samples
+	no=no/12; //bytes -> samples
 	if (no>maxct) no=maxct;
 
 	for (i=0; i<no; i++) {
@@ -95,8 +95,8 @@ int mpu9250_read_fifo(mpu9250_dev_t *dev, mpu9250_accel_tp *meas, int maxct) {
 		cmd = i2c_cmd_link_create();
 		i2c_master_start(cmd);
 		i2c_master_write_byte(cmd, ( (dev->i2c_address<<1) | I2C_MASTER_READ), true);
-		i2c_master_read(cmd, buf, 7, 0);
-		i2c_master_read(cmd, buf+7, 1, 1);
+		i2c_master_read(cmd, buf, 11, 0);
+		i2c_master_read(cmd, buf+11, 1, 1);
 		i2c_master_stop(cmd);
 		ret=i2c_master_cmd_begin(dev->i2c_port_num, cmd, 100 / portTICK_RATE_MS);
 		if (ret!=ESP_OK) {
@@ -107,6 +107,8 @@ int mpu9250_read_fifo(mpu9250_dev_t *dev, mpu9250_accel_tp *meas, int maxct) {
 		meas[i].accely=(buf[2]<<8)|buf[3];
 		meas[i].accelz=(buf[4]<<8)|buf[5];
 		meas[i].gyrox=(buf[6]<<8)|buf[7];
+		meas[i].gyroy=(buf[8]<<8)|buf[9];
+		meas[i].gyroz=(buf[10]<<8)|buf[11];
 		i2c_cmd_link_delete(cmd);
 	}
 	return no;
