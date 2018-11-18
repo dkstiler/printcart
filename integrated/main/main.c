@@ -265,7 +265,7 @@ void do_mona() {
 //			st7735_ugui_flush();
 
 			VL53L0X_RangingMeasurementData_t measurement_data[3]={0};
-			//flush queu
+			//flush queue
 			vl_task_get_results(&measurement_data[0]);
 			vl_task_get_results(&measurement_data[0]);
 			vl_task_get_results(&measurement_data[0]);
@@ -427,6 +427,38 @@ void do_nyancat() {
 	}
 }
 
+
+void do_whee() {
+	st7735_ugui_cls();
+	UG_SetForecolor(C_YELLOW);
+	UG_PutString(0,0, "WHEEEEEEEEEE");
+	st7735_ugui_flush();
+	pixel_pusher_set_type(PP_WHEE);
+	int b=0;
+	wait_btn_rel();
+	while(1) {
+		b=get_cur_btn();
+		if (b==1) {
+			wait_btn_rel();
+			return;
+		} else if (b==2) {
+			st7735_ugui_cls();
+			UG_SetForecolor(C_PINK);
+			UG_PutString(0,0, "WHEEEEEEEEEE");
+			st7735_ugui_flush();
+			pixel_pusher_set_speed_pos(0,0,FIXED_SPEED,FIXED_SPEED,1);
+			wait_btn_rel();
+			pixel_pusher_set_speed_pos(0,0,FIXED_SPEED,FIXED_SPEED,0);
+			st7735_ugui_cls();
+			UG_SetForecolor(C_YELLOW);
+			UG_PutString(0,0, "WHEEEEEEEEEE");
+			st7735_ugui_flush();
+		}
+		vTaskDelay(50/portTICK_RATE_MS);
+	}
+}
+
+
 int rgbtocol(int r, int g, int b) {
 	if (r>255) r=255;
 	if (g>255) g=255;
@@ -535,6 +567,7 @@ void ui_proc(void *arg) {
 		"MONA",
 		"MINE!",
 		"MONA_IMU",
+		"WHEE (B)",
 		NULL
 	};
 
@@ -563,6 +596,7 @@ void ui_proc(void *arg) {
 			if (sel==2) do_mona();
 			if (sel==3) do_mine();
 			if (sel==4) do_mona_imu();
+			if (sel==5) do_whee();
 		}
 	}
 

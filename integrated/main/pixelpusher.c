@@ -19,6 +19,9 @@ extern const uint8_t brush_end[]     asm("_binary_brush_raw_end");
 extern const uint8_t mona_start[]   asm("_binary_monalisa_rgb_start");
 extern const uint8_t mona_end[]     asm("_binary_monalisa_rgb_end");
 
+extern const uint8_t whe_start[]   asm("_binary_whe_mono_start");
+extern const uint8_t whe_end[]     asm("_binary_whe_mono_end");
+
 extern const uint8_t mine_start[]   asm("_binary_mine_raw_start");
 extern const uint8_t mine_end[]     asm("_binary_mine_raw_end");
 
@@ -90,7 +93,7 @@ static void pixel_pusher_color(pixelpusher_state_t *st, uint8_t *pixels) {
 			if (xpos[c]>=0 && xpos[c]<84) {
 				int cm=((255-col[c]) * (255-p[c][x-14]))>>8;
 				if ((cm)>(rand()&0x1ff)) { //dither
-					printcart_line_set_pixel(&pixels[c*14], x, c);
+					printcart_line_set_pixel(pixels, x, c);
 				}
 			}
 		}
@@ -114,12 +117,42 @@ static void pixel_pusher_nyancat(pixelpusher_state_t *st, uint8_t *pixels) {
 	for (int x=14; x<14+84; x++) {
 		for (int c=0; c<3; c++) {
 			if ((255-*p[c])>(rand()&0xff)) { //dither
-				if (xpos[c]>=0) printcart_line_set_pixel(&pixels[c*14], x, c);
+				if (xpos[c]>=0) printcart_line_set_pixel(pixels, x, c);
 			}
 			p[c]+=3;
 		}
 	}
 }
+
+#define MONO_OFF 20
+#define WHE_REP_START (370*SCALE)
+#define WHE_REP_END (515*SCALE)
+
+static void pixel_pusher_whee(pixelpusher_state_t *st, uint8_t *pixels) {
+	int xpos[2];
+	if (!st->ena) return;
+	//Offsets for nozzles
+	xpos[0]=st->x >> FP_SHIFT;
+	//Repeat last 'E' infinitely
+	xpos[1]=wraparound(xpos[0], WHE_REP_START, WHE_REP_END)/SCALE;
+	xpos[0]=wraparound(xpos[0]-MONO_OFF, WHE_REP_START, WHE_REP_END)/SCALE;
+
+	const uint8_t *p[2]; //position in image data for all 3 nozzles
+	int mask[2];
+	for (int r=0; r<2; r++) {
+		p[r]=&whe_start[(xpos[r])/8];
+		mask[r]=1<<(xpos[r]&7);
+	}
+	for (int x=2; x<164; x++) {
+		for (int r=0; r<2; r++) {
+			if (rand()&1) { //dither
+				if (((*p[r])&mask[r])!=0) printcart_line_set_pixel_mono(pixels, (168-x), r);
+			}
+			p[r]+=65;
+		}
+	}
+}
+
 
 
 static void pixel_pusher_mine(pixelpusher_state_t *st, uint8_t *pixels) {
@@ -139,7 +172,7 @@ static void pixel_pusher_mine(pixelpusher_state_t *st, uint8_t *pixels) {
 	for (int x=14; x<14+84; x++) {
 		for (int c=0; c<3; c++) {
 			if ((255-*p[c])>(rand()&0xff)) { //dither
-				if (xpos[c]>=0) printcart_line_set_pixel(&pixels[c*14], x, c);
+				if (xpos[c]>=0) printcart_line_set_pixel(pixels, x, c);
 			}
 			p[c]++;
 		}
@@ -168,7 +201,7 @@ static void pixel_pusher_mona(pixelpusher_state_t *st, uint8_t *pixels) {
 	for (int x=14; x<14+84; x++) {
 		for (int c=0; c<3; c++) {
 			if ((255-*p[c])>(rand()&0x1ff)) { //dither
-				if (xpos[c]>=0 && xpos[c]<864) printcart_line_set_pixel(&pixels[c*14], x, c);
+				if (xpos[c]>=0 && xpos[c]<864) printcart_line_set_pixel(pixels, x, c);
 			}
 			p[c]+=3;
 		}
@@ -193,7 +226,7 @@ static void pixel_pusher_mona_imu(pixelpusher_state_t *st, uint8_t *pixels) {
 		for (int c=0; c<3; c++) {
 			if ((255-*p[c])>(rand()&0xff)) { //dither
 				if (xpos[c]>=0 && xpos[c]<864 && ypos>=0 && ypos<560) {
-					printcart_line_set_pixel(&pixels[c*14], x, c);
+					printcart_line_set_pixel(pixels, x, c);
 				}
 			}
 			p[c]+=3;
@@ -220,11 +253,12 @@ static void pixel_pusher_task(void *arg) {
 		//clear pixel data
 		memset(pixels, 0xff, 14*3);
 //		if (((st->x >> (FP_SHIFT-2))!=(prev_x >> (FP_SHIFT-2)))) {
-			if (sel_type==0) pixel_pusher_nyancat(st, pixels);
-			if (sel_type==1) pixel_pusher_color(st, pixels);
-			if (sel_type==2) pixel_pusher_mona(st, pixels);
-			if (sel_type==3) pixel_pusher_mine(st, pixels);
-			if (sel_type==4) pixel_pusher_mona_imu(st, pixels);
+			if (sel_type==PP_NYANCAT) pixel_pusher_nyancat(st, pixels);
+			if (sel_type==PP_COLOR) pixel_pusher_color(st, pixels);
+			if (sel_type==PP_MONA) pixel_pusher_mona(st, pixels);
+			if (sel_type==PP_MINE) pixel_pusher_mine(st, pixels);
+			if (sel_type==PP_MONA_IMU) pixel_pusher_mona_imu(st, pixels);
+			if (sel_type==PP_WHEE) pixel_pusher_whee(st, pixels);
 //		}
 		i2s_push_pixels(&I2S1, pixels);
 		prev_x=st->x;

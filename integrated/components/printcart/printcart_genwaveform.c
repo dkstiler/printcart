@@ -25,9 +25,42 @@ void IRAM_ATTR printcart_line_set_pixel(uint8_t *l, int p, int col) {
 	if (p>(8*14)) return;
 	int byteno=bo[col][p%14];
 	int bitno=p/14;
-	l[byteno]&=~(1<<bitno);
+	l[byteno+(14*col)]&=~(1<<bitno);
 }
 
+typedef struct {
+	int c;
+	int bit;
+	int order;
+} bw_nozinfo_t;
+
+const bw_nozinfo_t ni[]={
+	{2,0,1}, {2,1,1}, {1,0,1}, {1,1,1},
+	{0,0,1}, {0,1,1}, {2,4,1}, {2,5,1},
+	{1,4,1}, {1,5,1}, {0,4,1}, {0,5,1},
+	{2,2,0}, {2,3,0}, {1,2,0}, {1,3,0},
+	{0,2,0}, {0,3,0}, {2,6,0}, {2,7,0},
+	{1,6,0}, {1,7,0}, {0,6,0}, {0,7,0},
+};
+
+//In a set of bits representing the bits being shifted out to the cartridge, this function sets
+//the enable bit for the p'th nozzle from the top of the inkjet nozzles. The black cartridge has two rows,
+//the 2nd one is slightly offset in the X direction and interleaved with the 1st (offset by half
+//a nozzle).
+//Note that the 2 first and last nozzles of each 168-nozzle row are not connected (giving a total 
+//of 324 nozzles in the combined two rows).
+void IRAM_ATTR printcart_line_set_pixel_mono(uint8_t *l, int p, int row) {
+	if (row) p+=168;
+	int j=p/14;
+	int k=13-(p%14);
+
+	const int bo[2][14]={
+		{4,12,10,2,8,0,6,13,7,1,9,3,11,5},
+		{13,7,1,9,3,11,5,4,12,10,2,8,0,6},
+	};
+
+	l[ni[j].c*14 + bo[ni[j].order][k]] &=~ (1<<ni[j].bit);
+}
 
 //This takes a pointer to a buffer of words to send out to the cartridge after eachother.
 //It then uses a template (tp) with length l to generate the base signals to control the 
@@ -59,8 +92,8 @@ int IRAM_ATTR printcart_add_waveform(uint16_t *w, const uint16_t *tp, const uint
 		mask&=~(1<<3); //seg ena is generated, so mask out in template
 		mask&=~((1<<0)|(1<<1)|(1<<2)); //same for cmy lines
 		//mask out power lines if not needed
-		if ((power&0x0f)==0x0f) mask&=~(1<<10);
-		if ((power&0xf0)==0xF0) mask&=~(1<<11);
+//		if ((power&0x0f)==0x0f) mask&=~(1<<10);
+//		if ((power&0xf0)==0xF0) mask&=~(1<<11);
 		uint16_t optdata_sel=0;
 		if (j==13) { //last one
 			optdata_sel=(1<<14);

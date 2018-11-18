@@ -3,6 +3,7 @@
 #define PP_MONA 2
 #define PP_MINE 3
 #define PP_MONA_IMU 4
+#define PP_WHEE 5
 
 //shift fixed points to right by this to get int val
 #define FP_SHIFT 16
