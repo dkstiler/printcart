@@ -1,3 +1,12 @@
+/*
+ * ----------------------------------------------------------------------------
+ * "THE BEER-WARE LICENSE" (Revision 42):
+ * Jeroen Domburg <jeroen@spritesmods.com> wrote this file. As long as you retain 
+ * this notice you can do whatever you want with this stuff. If we meet some day, 
+ * and you think this stuff is worth it, you can buy me a beer in return. 
+ * ----------------------------------------------------------------------------
+ */
+
 #include <stdio.h>
 #include <string.h>
 #include "freertos/FreeRTOS.h"
@@ -7,6 +16,20 @@
 #include "esp_log.h"
 #include "driver/i2s.h"
 #include "driver/adc.h"
+
+/*
+This is an experiment to find the beginning (or any time reference, actually) of an ultrasonic ping with high precision.
+The idea is to instead of just doing amplitude tresholding, we see the ultrasonic signal as data modulated on a 40KHz
+carrier. This data gets demodulated into an I- and a Q-stream; this gets converted in a phase- and an amplitude stream.
+Because we know the data (an M-code) the transmitter encoded in the phase, we can autocorrelate this data with the 
+decoded phase signal; in theory, where the autocorrelation matches most is the location where our data is found. The
+idea is that this is more precise than simple thresholding.
+
+All this isn't exactly implemented entirely: for now, the code just spits out a table with the various decoded
+values in it. Use plotdata.sh to show it.
+*/
+
+
 
 //Useful URL if you're into this DSP stuff: https://dspguru.com/dsp/tricks/
 

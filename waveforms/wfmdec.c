@@ -1,3 +1,18 @@
+/*
+ * ----------------------------------------------------------------------------
+ * "THE BEER-WARE LICENSE" (Revision 42):
+ * Jeroen Domburg <jeroen@spritesmods.com> wrote this file. As long as you retain 
+ * this notice you can do whatever you want with this stuff. If we meet some day, 
+ * and you think this stuff is worth it, you can buy me a beer in return. 
+ * ----------------------------------------------------------------------------
+ */
+
+/*
+This is the program that decodes a wfm dump into an image. The image is spit out on the console 
+as ansi-art: make sure your window is large enough and your font small enough to show everything.
+*/
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
@@ -6,6 +21,8 @@
 #include <fcntl.h>
 #include <sys/mman.h>
 #include <stdint.h>
+
+
 
 //Header in the wfm file. No idea what's in there and we don't care, just skip iut.
 #define DATA_OFF 0xC90
@@ -220,6 +237,7 @@ void print_bits_bw(uint8_t *bits, int alt_order, uint8_t *power) {
 int main(int argc, char **argv) {
 	if (argc<2) {
 		printf("Usage: %s file.wmv [colidx|'b'] > out.txt\n", argv[0]);
+		printf("colidx is the sum of C(1), M(2), Y(4) indicating the colors to show, or 'b' if the data comes from a black cart.\n");
 		exit(0);
 	}
 	int len=0;

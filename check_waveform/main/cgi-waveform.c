@@ -5,6 +5,16 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/timers.h"
 
+/*
+ * ----------------------------------------------------------------------------
+ * "THE BEER-WARE LICENSE" (Revision 42):
+ * Jeroen Domburg <jeroen@spritesmods.com> wrote this file. As long as you retain 
+ * this notice you can do whatever you want with this stuff. If we meet some day, 
+ * and you think this stuff is worth it, you can buy me a beer in return. 
+ * ----------------------------------------------------------------------------
+ */
+
+
 static i2s_parallel_buffer_desc_t bufdesc[2][2];
 
 static TimerHandle_t stop_timer;

@@ -8,8 +8,11 @@
  */
 
 
-//Receiver, complementary to the ultrasonic_tx project. This file just sets up esp-now and makes it trigger
-//the ultrasonic receive routines when the transmitter sends out an esp-now packet.
+/*
+Simple and stupid program that periodically sends out both an ultrasonic ping (in the form of a bi-phase 
+encoded M-code) as well as an ESPNow WiFi packet. The idea is that by measuring the time difference on the
+receiver, the distance can be inferred.
+*/
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -20,7 +23,8 @@
 #include "esp_event.h"
 #include "esp_event_loop.h"
 #include "nvs_flash.h"
-#include "us_detect.h"
+#include "driver/gpio.h"
+#include "driver/rmt.h"
 #include "esp_now.h"
 #include "esp_log.h"
 #include <string.h>
@@ -29,8 +33,30 @@ static const char *TAG = "espnow";
 
 #define CHANNEL 11
 
+
 static uint8_t broadcast_mac[6] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
 
+static void rmt_tx_init()
+{
+    rmt_config_t config;
+    config.rmt_mode = RMT_MODE_TX;
+    config.channel = 0;
+    config.gpio_num = 32;
+    config.mem_block_num = 1;
+    config.tx_config.loop_en = 0;
+    config.tx_config.carrier_en = 0;
+    config.tx_config.idle_output_en = 0;
+    config.tx_config.idle_level = 0;
+    config.tx_config.carrier_duty_percent = 50;
+    config.clk_div = 1;
+
+    ESP_ERROR_CHECK(rmt_config(&config));
+    ESP_ERROR_CHECK(rmt_driver_install(config.channel, 0, 0));
+
+    gpio_set_direction(33, GPIO_MODE_OUTPUT);
+    gpio_matrix_out(33, RMT_SIG_OUT0_IDX, 1, 0);
+
+}
 
 static esp_err_t wifi_event_handler(void *ctx, system_event_t *event) {
 	switch(event->event_id) {
@@ -44,11 +70,22 @@ static esp_err_t wifi_event_handler(void *ctx, system_event_t *event) {
 }
 
 
-static void send_cb(const uint8_t *mac_addr, esp_now_send_status_t status) {
+esp_timer_handle_t sendtimer;
+
+//define M-sequence
+//const int8_t phase[]={0,1,0,0,1,1,1};
+const int8_t phase[]={1,1,1,1,1,1,0,0,0,0,0,0};
+#define PHASE_CYCCNT 4
+#define NO_ITEMS (sizeof(phase)*PHASE_CYCCNT)
+rmt_item32_t item[NO_ITEMS]={0};
+
+static void esp_send_timer_cb(void *arg) {
+	ESP_ERROR_CHECK(rmt_write_items(0, item, NO_ITEMS, true));
+	printf("Tx done.\n");
 }
 
-static void recv_cb(const uint8_t *mac_addr, const uint8_t *data, int len) {
-	us_mark_start();
+static void send_cb(const uint8_t *mac_addr, esp_now_send_status_t status) {
+	esp_timer_start_once(sendtimer, 300);
 }
 
 esp_err_t espnow_init() {
@@ -71,7 +108,7 @@ esp_err_t espnow_init() {
 	/* Initialize ESPNOW and register sending and receiving callback function. */
 	ESP_ERROR_CHECK( esp_now_init() );
 	ESP_ERROR_CHECK( esp_now_register_send_cb(send_cb) );
-	ESP_ERROR_CHECK( esp_now_register_recv_cb(recv_cb) );
+//	ESP_ERROR_CHECK( esp_now_register_recv_cb(recv_cb) );
 
 	/* Add broadcast peer information to peer list. */
 	esp_now_peer_info_t *peer = malloc(sizeof(esp_now_peer_info_t));
@@ -89,11 +126,30 @@ esp_err_t espnow_init() {
 	return ESP_OK;
 }
 
-
-int app_main(void) {
-	us_init();
+int app_main(void)
+{
 	espnow_init();
-	us_run();
-	return 0;
+
+	rmt_tx_init();
+	for (int i=0; i<NO_ITEMS; i++) {
+		item[i].duration0=(80000000/(40000*2));
+		item[i].level0=(phase[i/PHASE_CYCCNT])?1:0;
+		item[i].duration1=(80000000/(40000*2));
+		item[i].level1=item[i].level0?0:1;
+	}
+	
+	const esp_timer_create_args_t arg={
+		.callback=esp_send_timer_cb,
+		.dispatch_method=ESP_TIMER_TASK,
+		.name="sendtimer"
+	};
+	esp_timer_create(&arg, &sendtimer);
+	
+	while(1) {
+		char *packet="PING!";
+		esp_now_send(broadcast_mac, (uint8_t*)packet, strlen(packet));
+		
+		vTaskDelay(50 / portTICK_PERIOD_MS);
+	}
 }
 

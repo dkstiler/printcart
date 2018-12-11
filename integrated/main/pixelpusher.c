@@ -1,3 +1,12 @@
+/*
+ * ----------------------------------------------------------------------------
+ * "THE BEER-WARE LICENSE" (Revision 42):
+ * Jeroen Domburg <jeroen@spritesmods.com> wrote this file. As long as you retain 
+ * this notice you can do whatever you want with this stuff. If we meet some day, 
+ * and you think this stuff is worth it, you can buy me a beer in return. 
+ * ----------------------------------------------------------------------------
+ */
+
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/semphr.h"
@@ -6,6 +15,12 @@
 #include "printcart_i2s.h"
 #include "pixelpusher.h"
 #include <string.h>
+
+/*
+This contains the so-called pixel pushers: small routines that push pixel data to the nozzles. The actual
+conversion to waveforms that encode the nozzle data is done in the printer cart component.
+*/
+
 
 #define SCALE 4
 #define NYAN_REP_START (138*SCALE)

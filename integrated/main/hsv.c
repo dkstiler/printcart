@@ -1,4 +1,15 @@
+
+
+/*
+Simple RGB->HSV and HSV->RGB functions.
+
+I stole this from somewhere on the Internet, can't exactly remember where. It's not complicated code, just google for
+a properly licensed version if you want it.
+*/
+
 #include "hsv.h"
+
+
 
 RgbColor HsvToRgb(HsvColor hsv)
 {

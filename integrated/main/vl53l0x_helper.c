@@ -1,3 +1,8 @@
+/*
+This is part of esp32-vl53l0x:
+https://github.com/kylehendricks/esp32-vl53l0x.git
+*/
+
 #include "vl53l0x_helper.h"
 
 #include "vl53l0x_api.h"
