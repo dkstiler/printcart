@@ -1,0 +1,2532 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="D">
+  <design>
+    <source>/home/jeroen/pcb/magicbrush/magicbrush/magicbrush.sch</source>
+    <date>Sat 10 Nov 2018 03:48:16 PM CST</date>
+    <tool>Eeschema 5.0.1+dfsg1-3</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title/>
+        <company/>
+        <rev/>
+        <date/>
+        <source>magicbrush.sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+      </title_block>
+    </sheet>
+    <sheet number="2" name="/PSU/" tstamps="/5BB99F63/">
+      <title_block>
+        <title/>
+        <company/>
+        <rev/>
+        <date/>
+        <source>psu.sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+      </title_block>
+    </sheet>
+    <sheet number="3" name="/ESP32/" tstamps="/5BBC906D/">
+      <title_block>
+        <title/>
+        <company/>
+        <rev/>
+        <date/>
+        <source>esp32.sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+      </title_block>
+    </sheet>
+    <sheet number="4" name="/Sensors/" tstamps="/5BBC9070/">
+      <title_block>
+        <title/>
+        <company/>
+        <rev/>
+        <date/>
+        <source>sensors.sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+      </title_block>
+    </sheet>
+    <sheet number="5" name="/Printer cartridge/" tstamps="/5BC75E0E/">
+      <title_block>
+        <title/>
+        <company/>
+        <rev/>
+        <date/>
+        <source>printcart.sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="J1">
+      <value>Conn_01x02_Male</value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x02_Male" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BB9A9F6</tstamp>
+    </comp>
+    <comp ref="C4">
+      <value>22u</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BB9AB9F</tstamp>
+    </comp>
+    <comp ref="L1">
+      <value>10uH WHC0630-100</value>
+      <footprint>JeroensFootprints:IND_WHC0630</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="L" description="Inductor"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BB9B6E6</tstamp>
+    </comp>
+    <comp ref="C1">
+      <value>100n</value>
+      <footprint>Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BB9B79A</tstamp>
+    </comp>
+    <comp ref="D1">
+      <value>SS24</value>
+      <footprint>Diode_SMD:D_SMB_Handsoldering</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="D" description="Diode"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BB9CB1F</tstamp>
+    </comp>
+    <comp ref="R1">
+      <value>120K</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BB9CCA2</tstamp>
+    </comp>
+    <comp ref="R2">
+      <value>10K</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BB9CF7B</tstamp>
+    </comp>
+    <comp ref="C2">
+      <value>22u</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BB9E48A</tstamp>
+    </comp>
+    <comp ref="C3">
+      <value>100n</value>
+      <footprint>Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BB9E4FE</tstamp>
+    </comp>
+    <comp ref="U4">
+      <value>HT7833_SOT89</value>
+      <footprint>Package_TO_SOT_SMD:SOT-89-3</footprint>
+      <datasheet>http://www.holtek.com.tw/documents/10179/82844a36-1633-498c-a6e3-4d99f2d0f6d7</datasheet>
+      <libsource lib="jeroens_components" part="HT7833_SOT89" description=""/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BBA09DE</tstamp>
+    </comp>
+    <comp ref="C9">
+      <value>100n</value>
+      <footprint>Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BBA0AE7</tstamp>
+    </comp>
+    <comp ref="C10">
+      <value>100n</value>
+      <footprint>Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BBA0B67</tstamp>
+    </comp>
+    <comp ref="C11">
+      <value>22u</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BBA0BF2</tstamp>
+    </comp>
+    <comp ref="U1">
+      <value>XR2203</value>
+      <footprint>Package_TO_SOT_SMD:SOT-23-5</footprint>
+      <datasheet>http://www.szxinna.com/pdf/201331180.PDF</datasheet>
+      <libsource lib="jeroens_components" part="XR2203" description="1.2MHz, 26V, 2.8A step-up DC/DC converter"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BBA3F8C</tstamp>
+    </comp>
+    <comp ref="L2">
+      <value>10uH WHC0630-100</value>
+      <footprint>JeroensFootprints:IND_WHC0630</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="L" description="Inductor"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BBA87AB</tstamp>
+    </comp>
+    <comp ref="C5">
+      <value>100n</value>
+      <footprint>Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BBA87B2</tstamp>
+    </comp>
+    <comp ref="D2">
+      <value>SS24</value>
+      <footprint>Diode_SMD:D_SMB_Handsoldering</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="D" description="Diode"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BBA87CB</tstamp>
+    </comp>
+    <comp ref="R3">
+      <value>68K</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BBA87D2</tstamp>
+    </comp>
+    <comp ref="R7">
+      <value>10K</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BBA87D9</tstamp>
+    </comp>
+    <comp ref="C6">
+      <value>1u</value>
+      <footprint>Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BBA87E9</tstamp>
+    </comp>
+    <comp ref="C7">
+      <value>100n</value>
+      <footprint>Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BBA87F0</tstamp>
+    </comp>
+    <comp ref="U2">
+      <value>XR2203</value>
+      <footprint>Package_TO_SOT_SMD:SOT-23-5</footprint>
+      <datasheet>http://www.szxinna.com/pdf/201331180.PDF</datasheet>
+      <libsource lib="jeroens_components" part="XR2203" description="1.2MHz, 26V, 2.8A step-up DC/DC converter"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BBA880A</tstamp>
+    </comp>
+    <comp ref="R9">
+      <value>1K2</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BBAD411</tstamp>
+    </comp>
+    <comp ref="C8">
+      <value>22uF</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BBAF8C6</tstamp>
+    </comp>
+    <comp ref="R4">
+      <value>1R</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BBAF96A</tstamp>
+    </comp>
+    <comp ref="J2">
+      <value>USB_B_Micro</value>
+      <footprint>JeroensFootprints:USB_Micro-B_0.8mm_taobao</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="USB_B_Micro" description="USB Micro Type B connector"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BBAFB13</tstamp>
+    </comp>
+    <comp ref="R6">
+      <value>1K</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BBB475D</tstamp>
+    </comp>
+    <comp ref="R8">
+      <value>1K</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BBB4806</tstamp>
+    </comp>
+    <comp ref="D3">
+      <value>LED</value>
+      <footprint>LED_SMD:LED_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="LED" description="Light emitting diode"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BBB48CA</tstamp>
+    </comp>
+    <comp ref="D4">
+      <value>LED</value>
+      <footprint>LED_SMD:LED_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="LED" description="Light emitting diode"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BBB8A32</tstamp>
+    </comp>
+    <comp ref="R5">
+      <value>1R</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BBC3BD8</tstamp>
+    </comp>
+    <comp ref="U3">
+      <value>TP4056</value>
+      <footprint>Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.35x2.35mm</footprint>
+      <datasheet>https://dlnmh9ip6v2uc.cloudfront.net/datasheets/Prototyping/TP4056.pdf</datasheet>
+      <libsource lib="jeroens_components" part="TP4056" description="1A LiIon battery charger"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BD66482</tstamp>
+    </comp>
+    <comp ref="TP1">
+      <value>16V</value>
+      <footprint>TestPoint:TestPoint_Pad_D1.5mm</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="TestPoint" description="test point"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BD6EE3A</tstamp>
+    </comp>
+    <comp ref="TP2">
+      <value>9V</value>
+      <footprint>TestPoint:TestPoint_Pad_D1.5mm</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="TestPoint" description="test point"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BD6EF07</tstamp>
+    </comp>
+    <comp ref="TP3">
+      <value>3V3</value>
+      <footprint>TestPoint:TestPoint_Pad_D1.5mm</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="TestPoint" description="test point"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BD6F287</tstamp>
+    </comp>
+    <comp ref="R24">
+      <value>0R</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BD76F89</tstamp>
+    </comp>
+    <comp ref="R25">
+      <value>0R</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BD789EE</tstamp>
+    </comp>
+    <comp ref="R27">
+      <value>0R</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BD78E09</tstamp>
+    </comp>
+    <comp ref="R26">
+      <value>0R</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BD792C3</tstamp>
+    </comp>
+    <comp ref="X11">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_1mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BDD0439</tstamp>
+    </comp>
+    <comp ref="X26">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_1mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/PSU/" tstamps="/5BB99F63/"/>
+      <tstamp>5BDD0440</tstamp>
+    </comp>
+    <comp ref="C12">
+      <value>100n</value>
+      <footprint>Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/ESP32/" tstamps="/5BBC906D/"/>
+      <tstamp>5BCD9677</tstamp>
+    </comp>
+    <comp ref="C13">
+      <value>22u</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/ESP32/" tstamps="/5BBC906D/"/>
+      <tstamp>5BCD9747</tstamp>
+    </comp>
+    <comp ref="R10">
+      <value>10K</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/ESP32/" tstamps="/5BBC906D/"/>
+      <tstamp>5BCD9837</tstamp>
+    </comp>
+    <comp ref="C14">
+      <value>100n</value>
+      <footprint>Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/ESP32/" tstamps="/5BBC906D/"/>
+      <tstamp>5BCD988E</tstamp>
+    </comp>
+    <comp ref="SW2">
+      <value>SW_Push</value>
+      <footprint>Button_Switch_THT:SW_PUSH_6mm</footprint>
+      <libsource lib="Switch" part="SW_Push" description="Push button switch, generic, two pins"/>
+      <sheetpath names="/ESP32/" tstamps="/5BBC906D/"/>
+      <tstamp>5BCE1F8E</tstamp>
+    </comp>
+    <comp ref="R12">
+      <value>10K</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/ESP32/" tstamps="/5BBC906D/"/>
+      <tstamp>5BCE1F9B</tstamp>
+    </comp>
+    <comp ref="J3">
+      <value>Conn_01x05_Male</value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x05_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x05_Male" description="Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/ESP32/" tstamps="/5BBC906D/"/>
+      <tstamp>5BD26790</tstamp>
+    </comp>
+    <comp ref="SW1">
+      <value>SW_Push</value>
+      <footprint>Button_Switch_THT:SW_PUSH_6mm</footprint>
+      <libsource lib="Switch" part="SW_Push" description="Push button switch, generic, two pins"/>
+      <sheetpath names="/ESP32/" tstamps="/5BBC906D/"/>
+      <tstamp>5BD2A840</tstamp>
+    </comp>
+    <comp ref="R11">
+      <value>10K</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/ESP32/" tstamps="/5BBC906D/"/>
+      <tstamp>5BD2A84D</tstamp>
+    </comp>
+    <comp ref="DISP1">
+      <value>LCD_LH096T</value>
+      <footprint>JeroensFootprints:LCD_LH086T</footprint>
+      <datasheet>http://www.jmdlcd.com/downloadRepository/f743f83e-f761-4d72-b1f0-3fcd0ae34dc2.pdf</datasheet>
+      <libsource lib="jeroens_components" part="LCD_LH096T" description="LH096T 160*80 color LCD"/>
+      <sheetpath names="/ESP32/" tstamps="/5BBC906D/"/>
+      <tstamp>5BD34236</tstamp>
+    </comp>
+    <comp ref="U5">
+      <value>ESP-WROVER32</value>
+      <footprint>JeroensFootprints:ESP-WROVER-MOD</footprint>
+      <datasheet>https://www.espressif.com/sites/default/files/documentation/esp32-wrover-b_datasheet_en.pdf</datasheet>
+      <libsource lib="jeroens_components" part="ESP-WROVER32" description="ESP-Wrover32"/>
+      <sheetpath names="/ESP32/" tstamps="/5BBC906D/"/>
+      <tstamp>5BD4644F</tstamp>
+    </comp>
+    <comp ref="X22">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/ESP32/" tstamps="/5BBC906D/"/>
+      <tstamp>5BDCD1B6</tstamp>
+    </comp>
+    <comp ref="X21">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/ESP32/" tstamps="/5BBC906D/"/>
+      <tstamp>5BDCD1BD</tstamp>
+    </comp>
+    <comp ref="X20">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/ESP32/" tstamps="/5BBC906D/"/>
+      <tstamp>5BDCD1C4</tstamp>
+    </comp>
+    <comp ref="X19">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/ESP32/" tstamps="/5BBC906D/"/>
+      <tstamp>5BDCD1CB</tstamp>
+    </comp>
+    <comp ref="X18">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/ESP32/" tstamps="/5BBC906D/"/>
+      <tstamp>5BDCD1D2</tstamp>
+    </comp>
+    <comp ref="X17">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/ESP32/" tstamps="/5BBC906D/"/>
+      <tstamp>5BDCD1D9</tstamp>
+    </comp>
+    <comp ref="X16">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/ESP32/" tstamps="/5BBC906D/"/>
+      <tstamp>5BDCD1E0</tstamp>
+    </comp>
+    <comp ref="X15">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/ESP32/" tstamps="/5BBC906D/"/>
+      <tstamp>5BDCD1E7</tstamp>
+    </comp>
+    <comp ref="X14">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/ESP32/" tstamps="/5BBC906D/"/>
+      <tstamp>5BDCD202</tstamp>
+    </comp>
+    <comp ref="X13">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/ESP32/" tstamps="/5BBC906D/"/>
+      <tstamp>5BDCD209</tstamp>
+    </comp>
+    <comp ref="X23">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_1mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/ESP32/" tstamps="/5BBC906D/"/>
+      <tstamp>5BDCF8C5</tstamp>
+    </comp>
+    <comp ref="X24">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_1mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/ESP32/" tstamps="/5BBC906D/"/>
+      <tstamp>5BDCFCB4</tstamp>
+    </comp>
+    <comp ref="X31">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/ESP32/" tstamps="/5BBC906D/"/>
+      <tstamp>5BDD2CEE</tstamp>
+    </comp>
+    <comp ref="X32">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/ESP32/" tstamps="/5BBC906D/"/>
+      <tstamp>5BDD2E32</tstamp>
+    </comp>
+    <comp ref="X47">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_1mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/ESP32/" tstamps="/5BBC906D/"/>
+      <tstamp>5BE3185F</tstamp>
+    </comp>
+    <comp ref="X48">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_1mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/ESP32/" tstamps="/5BBC906D/"/>
+      <tstamp>5BE3186C</tstamp>
+    </comp>
+    <comp ref="X63">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/ESP32/" tstamps="/5BBC906D/"/>
+      <tstamp>5BEFC3F2</tstamp>
+    </comp>
+    <comp ref="X64">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/ESP32/" tstamps="/5BBC906D/"/>
+      <tstamp>5BEFC3F9</tstamp>
+    </comp>
+    <comp ref="U6">
+      <value>VL53L0X</value>
+      <footprint>JeroensFootprints:VL53LxX</footprint>
+      <datasheet>https://www.st.com/resource/en/datasheet/vl53l0x.pdf</datasheet>
+      <libsource lib="jeroens_components" part="VL53L0X" description="VL53L0X ToF distance sensor"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BBC954E</tstamp>
+    </comp>
+    <comp ref="C16">
+      <value>100n</value>
+      <footprint>Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BBC963B</tstamp>
+    </comp>
+    <comp ref="C17">
+      <value>4u7</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BBC9686</tstamp>
+    </comp>
+    <comp ref="U9">
+      <value>VL53L0X</value>
+      <footprint>JeroensFootprints:VL53LxX</footprint>
+      <datasheet>https://www.st.com/resource/en/datasheet/vl53l0x.pdf</datasheet>
+      <libsource lib="jeroens_components" part="VL53L0X" description="VL53L0X ToF distance sensor"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BBC9AF9</tstamp>
+    </comp>
+    <comp ref="C20">
+      <value>100n</value>
+      <footprint>Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BBC9B00</tstamp>
+    </comp>
+    <comp ref="C21">
+      <value>4u7</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BBC9B07</tstamp>
+    </comp>
+    <comp ref="U11">
+      <value>VL53L0X</value>
+      <footprint>JeroensFootprints:VL53LxX</footprint>
+      <datasheet>https://www.st.com/resource/en/datasheet/vl53l0x.pdf</datasheet>
+      <libsource lib="jeroens_components" part="VL53L0X" description="VL53L0X ToF distance sensor"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BBC9E6B</tstamp>
+    </comp>
+    <comp ref="C25">
+      <value>100n</value>
+      <footprint>Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BBC9E72</tstamp>
+    </comp>
+    <comp ref="C26">
+      <value>4u7</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BBC9E79</tstamp>
+    </comp>
+    <comp ref="U8">
+      <value>TCA9534</value>
+      <footprint>Package_SO:TSSOP-16_4.4x5mm_P0.65mm</footprint>
+      <datasheet>http://www.ti.com/lit/ds/symlink/tca9534.pdf</datasheet>
+      <libsource lib="Interface_Expansion" part="TCA9534" description="8 Bit Port/Expander, I2C SMBUS, Interrupt output, TSSOP-16, SOIC-20"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BBCB093</tstamp>
+    </comp>
+    <comp ref="U7">
+      <value>TCS3472</value>
+      <footprint>JeroensFootprints:DFNL_FN_TCS3472</footprint>
+      <datasheet>https://ams.com/documents/20143/36005/TCS3472_DS000390_2-00.pdf</datasheet>
+      <libsource lib="jeroens_components" part="TCS3472" description="RGB color sensor, I2C"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BBD1BEC</tstamp>
+    </comp>
+    <comp ref="C19">
+      <value>100n</value>
+      <footprint>Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BBD1E45</tstamp>
+    </comp>
+    <comp ref="C18">
+      <value>100n</value>
+      <footprint>Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BBE2A17</tstamp>
+    </comp>
+    <comp ref="Q1">
+      <value>AO3400</value>
+      <footprint>Package_TO_SOT_SMD:SOT-23</footprint>
+      <datasheet>http://www.aosmd.com/pdfs/datasheet/ao3400.pdf</datasheet>
+      <libsource lib="jeroens_components" part="AO3400" description="30V, 5.8A N-channel mosfet (Vgs,th=2V)"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BC0393B</tstamp>
+    </comp>
+    <comp ref="R16">
+      <value>10K</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BC03A1E</tstamp>
+    </comp>
+    <comp ref="R14">
+      <value>68R</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BC03A8B</tstamp>
+    </comp>
+    <comp ref="D5">
+      <value>LED WH</value>
+      <footprint>LED_SMD:LED_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="LED" description="Light emitting diode"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BC03BAA</tstamp>
+    </comp>
+    <comp ref="U10">
+      <value>MPU-9250</value>
+      <footprint>Package_DFN_QFN:QFN-24_3x3mm_P0.4mm</footprint>
+      <datasheet>https://store.invensense.com/datasheets/invensense/MPU9250REV1.0.pdf</datasheet>
+      <libsource lib="Sensor_Motion" part="MPU-9250" description="InvenSense 9-Axis Motion Sensor, Accelerometer, Gyroscope, Compass, I2C/SPI"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BC19B90</tstamp>
+    </comp>
+    <comp ref="C23">
+      <value>1u</value>
+      <footprint>Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BC19D7D</tstamp>
+    </comp>
+    <comp ref="C22">
+      <value>100n</value>
+      <footprint>Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BC19E01</tstamp>
+    </comp>
+    <comp ref="C24">
+      <value>100n</value>
+      <footprint>Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BC54FEC</tstamp>
+    </comp>
+    <comp ref="R13">
+      <value>10K</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BCEF31D</tstamp>
+    </comp>
+    <comp ref="Q2">
+      <value>AO3400</value>
+      <footprint>Package_TO_SOT_SMD:SOT-23</footprint>
+      <datasheet>http://www.aosmd.com/pdfs/datasheet/ao3400.pdf</datasheet>
+      <libsource lib="jeroens_components" part="AO3400" description="30V, 5.8A N-channel mosfet (Vgs,th=2V)"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BD1A353</tstamp>
+    </comp>
+    <comp ref="R17">
+      <value>10K</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BD1A35A</tstamp>
+    </comp>
+    <comp ref="R15">
+      <value>68R</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BD1A361</tstamp>
+    </comp>
+    <comp ref="NT1">
+      <value>Net-Tie_2</value>
+      <footprint>NetTie:NetTie-2_THT_Pad0.3mm</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="Net-Tie_2" description="Net tie, 2 pins"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BD5C567</tstamp>
+    </comp>
+    <comp ref="TP4">
+      <value>SDA</value>
+      <footprint>TestPoint:TestPoint_Pad_D1.5mm</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="TestPoint" description="test point"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BD751BF</tstamp>
+    </comp>
+    <comp ref="TP5">
+      <value>SCL</value>
+      <footprint>TestPoint:TestPoint_Pad_D1.5mm</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="TestPoint" description="test point"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BD75244</tstamp>
+    </comp>
+    <comp ref="X33">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BDEA28E</tstamp>
+    </comp>
+    <comp ref="X34">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BDEA295</tstamp>
+    </comp>
+    <comp ref="X35">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BDF2748</tstamp>
+    </comp>
+    <comp ref="X36">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BDF274F</tstamp>
+    </comp>
+    <comp ref="X37">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BDF8799</tstamp>
+    </comp>
+    <comp ref="X38">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BDF87A0</tstamp>
+    </comp>
+    <comp ref="X39">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BDFE7DA</tstamp>
+    </comp>
+    <comp ref="X40">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BDFE7E1</tstamp>
+    </comp>
+    <comp ref="X41">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BE04E3A</tstamp>
+    </comp>
+    <comp ref="X42">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BE04E41</tstamp>
+    </comp>
+    <comp ref="X43">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BE04E48</tstamp>
+    </comp>
+    <comp ref="X44">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BE04E4F</tstamp>
+    </comp>
+    <comp ref="X45">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BE2A497</tstamp>
+    </comp>
+    <comp ref="X46">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BE2A49E</tstamp>
+    </comp>
+    <comp ref="X49">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BE3C08B</tstamp>
+    </comp>
+    <comp ref="X50">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BE3C092</tstamp>
+    </comp>
+    <comp ref="X52">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BE42FFD</tstamp>
+    </comp>
+    <comp ref="X51">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BE42FF6</tstamp>
+    </comp>
+    <comp ref="X55">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BE5158C</tstamp>
+    </comp>
+    <comp ref="X53">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BE51593</tstamp>
+    </comp>
+    <comp ref="X56">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BE5878A</tstamp>
+    </comp>
+    <comp ref="X54">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BE58791</tstamp>
+    </comp>
+    <comp ref="X60">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BE5F428</tstamp>
+    </comp>
+    <comp ref="X59">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BE5F42F</tstamp>
+    </comp>
+    <comp ref="X57">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_1mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BE6651B</tstamp>
+    </comp>
+    <comp ref="X58">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_1mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BE6668E</tstamp>
+    </comp>
+    <comp ref="X61">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BEE9332</tstamp>
+    </comp>
+    <comp ref="X62">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BEEF521</tstamp>
+    </comp>
+    <comp ref="X67">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BF13200</tstamp>
+    </comp>
+    <comp ref="X68">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BF13207</tstamp>
+    </comp>
+    <comp ref="R28">
+      <value>3K3</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BF297D9</tstamp>
+    </comp>
+    <comp ref="R29">
+      <value>3K3</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/Sensors/" tstamps="/5BBC9070/"/>
+      <tstamp>5BF29900</tstamp>
+    </comp>
+    <comp ref="J4">
+      <value>Conn_01x16_Female</value>
+      <footprint>JeroensFootprints:HP_803_CART</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x16_Female" description="Generic connector, single row, 01x16, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BC75EAA</tstamp>
+    </comp>
+    <comp ref="C29">
+      <value>100n</value>
+      <footprint>Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BC76500</tstamp>
+    </comp>
+    <comp ref="C30">
+      <value>100n</value>
+      <footprint>Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BC7677B</tstamp>
+    </comp>
+    <comp ref="U13">
+      <value>MC14504B</value>
+      <footprint>Package_SO:SOIC-16_3.9x9.9mm_P1.27mm</footprint>
+      <libsource lib="jeroens_components" part="MC14504B" description="Hex Level Shifter For TTL to CMOS or CMOS to CMOS"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BC76A12</tstamp>
+    </comp>
+    <comp ref="C31">
+      <value>100n</value>
+      <footprint>Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BC76A27</tstamp>
+    </comp>
+    <comp ref="C32">
+      <value>100n</value>
+      <footprint>Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BC76A37</tstamp>
+    </comp>
+    <comp ref="Q4">
+      <value>AO3401</value>
+      <footprint>Package_TO_SOT_SMD:SOT-23</footprint>
+      <datasheet>http://www.aosmd.com/res/data_sheets/AO3401.pdf</datasheet>
+      <libsource lib="jeroens_components" part="AO3401" description="-30V Vds, -4A Id, P-Channel MOSFET, SOT-23-3"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BC81C71</tstamp>
+    </comp>
+    <comp ref="R21">
+      <value>1K</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BC8EA56</tstamp>
+    </comp>
+    <comp ref="C28">
+      <value>10n</value>
+      <footprint>Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BC92F88</tstamp>
+    </comp>
+    <comp ref="Q6">
+      <value>AO3400</value>
+      <footprint>Package_TO_SOT_SMD:SOT-23</footprint>
+      <datasheet>http://www.aosmd.com/pdfs/datasheet/ao3400.pdf</datasheet>
+      <libsource lib="jeroens_components" part="AO3400" description="30V, 5.8A N-channel mosfet (Vgs,th=2V)"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BC93D06</tstamp>
+    </comp>
+    <comp ref="R20">
+      <value>1K</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BC93D74</tstamp>
+    </comp>
+    <comp ref="R23">
+      <value>10K</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BC93E60</tstamp>
+    </comp>
+    <comp ref="Q3">
+      <value>AO3401</value>
+      <footprint>Package_TO_SOT_SMD:SOT-23</footprint>
+      <datasheet>http://www.aosmd.com/res/data_sheets/AO3401.pdf</datasheet>
+      <libsource lib="jeroens_components" part="AO3401" description="-30V Vds, -4A Id, P-Channel MOSFET, SOT-23-3"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BC99D3F</tstamp>
+    </comp>
+    <comp ref="R19">
+      <value>1K</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BC99D49</tstamp>
+    </comp>
+    <comp ref="C27">
+      <value>10n</value>
+      <footprint>Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BC99D54</tstamp>
+    </comp>
+    <comp ref="Q5">
+      <value>AO3400</value>
+      <footprint>Package_TO_SOT_SMD:SOT-23</footprint>
+      <datasheet>http://www.aosmd.com/pdfs/datasheet/ao3400.pdf</datasheet>
+      <libsource lib="jeroens_components" part="AO3400" description="30V, 5.8A N-channel mosfet (Vgs,th=2V)"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BC99D5D</tstamp>
+    </comp>
+    <comp ref="R18">
+      <value>1K</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BC99D64</tstamp>
+    </comp>
+    <comp ref="R22">
+      <value>10K</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BC99D71</tstamp>
+    </comp>
+    <comp ref="U12">
+      <value>MC14504B</value>
+      <footprint>Package_SO:SOIC-16_3.9x9.9mm_P1.27mm</footprint>
+      <libsource lib="jeroens_components" part="MC14504B" description="Hex Level Shifter For TTL to CMOS or CMOS to CMOS"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BC76083</tstamp>
+    </comp>
+    <comp ref="X1">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BD9A643</tstamp>
+    </comp>
+    <comp ref="X2">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BD9A6B5</tstamp>
+    </comp>
+    <comp ref="X3">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BDAC4DF</tstamp>
+    </comp>
+    <comp ref="X4">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BDAC4E6</tstamp>
+    </comp>
+    <comp ref="X5">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BDAFB1D</tstamp>
+    </comp>
+    <comp ref="X6">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BDAFB24</tstamp>
+    </comp>
+    <comp ref="X7">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BDB315F</tstamp>
+    </comp>
+    <comp ref="X8">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BDB3166</tstamp>
+    </comp>
+    <comp ref="X9">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BDB67A5</tstamp>
+    </comp>
+    <comp ref="X30">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_1mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BDBF9CF</tstamp>
+    </comp>
+    <comp ref="X29">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_1mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BDBFC23</tstamp>
+    </comp>
+    <comp ref="X27">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_1mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BDC41BE</tstamp>
+    </comp>
+    <comp ref="X28">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_1mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BDC4274</tstamp>
+    </comp>
+    <comp ref="X10">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BDB67AC</tstamp>
+    </comp>
+    <comp ref="X25">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_1mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BDD020B</tstamp>
+    </comp>
+    <comp ref="X12">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_1mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BDD02D8</tstamp>
+    </comp>
+    <comp ref="X65">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BF24FC9</tstamp>
+    </comp>
+    <comp ref="X66">
+      <value>wire_pad</value>
+      <footprint>JeroensFootprints:wire_pad_0.5mm</footprint>
+      <libsource lib="jeroens_components" part="wire_pad" description="wire_pad"/>
+      <sheetpath names="/Printer cartridge/" tstamps="/5BC75E0E/"/>
+      <tstamp>5BF24FD0</tstamp>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="Connector" part="Conn_01x02_Male">
+      <description>Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x02_Male</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector" part="Conn_01x05_Male">
+      <description>Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x05_Male</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector" part="Conn_01x16_Female">
+      <description>Generic connector, single row, 01x16, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x16_Female</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+        <pin num="6" name="Pin_6" type="passive"/>
+        <pin num="7" name="Pin_7" type="passive"/>
+        <pin num="8" name="Pin_8" type="passive"/>
+        <pin num="9" name="Pin_9" type="passive"/>
+        <pin num="10" name="Pin_10" type="passive"/>
+        <pin num="11" name="Pin_11" type="passive"/>
+        <pin num="12" name="Pin_12" type="passive"/>
+        <pin num="13" name="Pin_13" type="passive"/>
+        <pin num="14" name="Pin_14" type="passive"/>
+        <pin num="15" name="Pin_15" type="passive"/>
+        <pin num="16" name="Pin_16" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector" part="TestPoint">
+      <description>test point</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Pin*</fp>
+        <fp>Test*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">TP</field>
+        <field name="Value">TestPoint</field>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector" part="USB_B_Micro">
+      <aliases>
+        <alias>USB_B_Mini</alias>
+      </aliases>
+      <description>USB Micro Type B connector</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>USB*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">USB_B_Micro</field>
+      </fields>
+      <pins>
+        <pin num="1" name="VBUS" type="power_out"/>
+        <pin num="2" name="D-" type="passive"/>
+        <pin num="3" name="D+" type="passive"/>
+        <pin num="4" name="ID" type="passive"/>
+        <pin num="5" name="GND" type="power_out"/>
+        <pin num="6" name="Shield" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="C">
+      <description>Unpolarized capacitor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>C_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">C</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="D">
+      <description>Diode</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>TO-???*</fp>
+        <fp>*_Diode_*</fp>
+        <fp>*SingleDiode*</fp>
+        <fp>D_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">D</field>
+        <field name="Value">D</field>
+      </fields>
+      <pins>
+        <pin num="1" name="K" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="L">
+      <description>Inductor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Choke_*</fp>
+        <fp>*Coil*</fp>
+        <fp>Inductor_*</fp>
+        <fp>L_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">L</field>
+        <field name="Value">L</field>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="LED">
+      <description>Light emitting diode</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>LED*</fp>
+        <fp>LED_SMD:*</fp>
+        <fp>LED_THT:*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">D</field>
+        <field name="Value">LED</field>
+      </fields>
+      <pins>
+        <pin num="1" name="K" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="Net-Tie_2">
+      <description>Net tie, 2 pins</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Net*Tie*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">NT</field>
+        <field name="Value">Net-Tie_2</field>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="R">
+      <description>Resistor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>R_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">R</field>
+        <field name="Value">R</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Interface_Expansion" part="TCA9534">
+      <description>8 Bit Port/Expander, I2C SMBUS, Interrupt output, TSSOP-16, SOIC-20</description>
+      <docs>http://www.ti.com/lit/ds/symlink/tca9534.pdf</docs>
+      <footprints>
+        <fp>TSSOP*4.4x5mm*P0.65mm*</fp>
+        <fp>SOIC*7.5x12.8mm*P1.27mm*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">TCA9534</field>
+      </fields>
+      <pins>
+        <pin num="1" name="A0" type="input"/>
+        <pin num="2" name="A1" type="input"/>
+        <pin num="3" name="A2" type="input"/>
+        <pin num="4" name="P0" type="BiDi"/>
+        <pin num="5" name="P1" type="BiDi"/>
+        <pin num="6" name="P2" type="BiDi"/>
+        <pin num="7" name="P3" type="BiDi"/>
+        <pin num="8" name="GND" type="power_in"/>
+        <pin num="9" name="P4" type="BiDi"/>
+        <pin num="10" name="P5" type="BiDi"/>
+        <pin num="11" name="P6" type="BiDi"/>
+        <pin num="12" name="P7" type="BiDi"/>
+        <pin num="13" name="~INT~" type="openCol"/>
+        <pin num="14" name="SCL" type="input"/>
+        <pin num="15" name="SDA" type="BiDi"/>
+        <pin num="16" name="VDD" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="Sensor_Motion" part="MPU-9250">
+      <description>InvenSense 9-Axis Motion Sensor, Accelerometer, Gyroscope, Compass, I2C/SPI</description>
+      <docs>https://store.invensense.com/datasheets/invensense/MPU9250REV1.0.pdf</docs>
+      <footprints>
+        <fp>*QFN*3x3mm*P0.4mm*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">MPU-9250</field>
+        <field name="Footprint">Sensor_Motion:InvenSense_QFN-24_3x3mm_P0.4mm</field>
+      </fields>
+      <pins>
+        <pin num="1" name="RESV_VDDIO" type="input"/>
+        <pin num="7" name="AUX_SCL" type="output"/>
+        <pin num="8" name="VDDIO" type="power_in"/>
+        <pin num="9" name="AD0/MISO" type="BiDi"/>
+        <pin num="10" name="REGOUT" type="passive"/>
+        <pin num="11" name="FSYNC" type="input"/>
+        <pin num="12" name="INT" type="output"/>
+        <pin num="13" name="VDD" type="power_in"/>
+        <pin num="18" name="GND" type="power_in"/>
+        <pin num="20" name="RESV_GND" type="power_in"/>
+        <pin num="21" name="AUX_SDA" type="BiDi"/>
+        <pin num="22" name="~CS" type="input"/>
+        <pin num="23" name="SCL/SCLK" type="input"/>
+        <pin num="24" name="SDA/MOSI" type="BiDi"/>
+      </pins>
+    </libpart>
+    <libpart lib="Switch" part="SW_Push">
+      <description>Push button switch, generic, two pins</description>
+      <fields>
+        <field name="Reference">SW</field>
+        <field name="Value">SW_Push</field>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="jeroens_components" part="AO3400">
+      <description>30V, 5.8A N-channel mosfet (Vgs,th=2V)</description>
+      <footprints>
+        <fp>*:SOT-23*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">Q</field>
+        <field name="Value">AO3400</field>
+        <field name="Footprint">Package_TO_SOT_SMD:SOT-23</field>
+        <field name="Datasheet">http://www.aosmd.com/pdfs/datasheet/ao3400.pdf</field>
+      </fields>
+      <pins>
+        <pin num="1" name="G" type="input"/>
+        <pin num="2" name="S" type="passive"/>
+        <pin num="3" name="D" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="jeroens_components" part="AO3401">
+      <description>-30V Vds, -4A Id, P-Channel MOSFET, SOT-23-3</description>
+      <docs>http://www.aosmd.com/res/data_sheets/AO3401.pdf</docs>
+      <footprints>
+        <fp>SOT?23*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">Q</field>
+        <field name="Value">AO3401</field>
+        <field name="Footprint">TO_SOT_Packages_SMD:SOT-23</field>
+      </fields>
+      <pins>
+        <pin num="1" name="G" type="input"/>
+        <pin num="2" name="S" type="passive"/>
+        <pin num="3" name="D" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="jeroens_components" part="ESP-WROVER32">
+      <description>ESP-Wrover32</description>
+      <docs>https://www.espressif.com/sites/default/files/documentation/esp32-wrover-b_datasheet_en.pdf</docs>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">ESP-WROVER32</field>
+      </fields>
+      <pins>
+        <pin num="1" name="GND" type="power_in"/>
+        <pin num="2" name="VDD33" type="power_in"/>
+        <pin num="3" name="EN" type="input"/>
+        <pin num="4" name="SENSOR_VP" type="input"/>
+        <pin num="5" name="SENSOR_VN" type="input"/>
+        <pin num="6" name="IO34" type="input"/>
+        <pin num="7" name="IO35" type="input"/>
+        <pin num="8" name="IO32" type="BiDi"/>
+        <pin num="9" name="IO33" type="BiDi"/>
+        <pin num="10" name="IO25" type="BiDi"/>
+        <pin num="11" name="IO26" type="BiDi"/>
+        <pin num="12" name="IO27" type="BiDi"/>
+        <pin num="13" name="IO14" type="BiDi"/>
+        <pin num="14" name="IO12" type="BiDi"/>
+        <pin num="15" name="GND" type="power_in"/>
+        <pin num="16" name="IO13" type="BiDi"/>
+        <pin num="17" name="SD2" type="BiDi"/>
+        <pin num="18" name="SD3" type="BiDi"/>
+        <pin num="19" name="CMD" type="BiDi"/>
+        <pin num="20" name="CLK" type="BiDi"/>
+        <pin num="21" name="SD0" type="BiDi"/>
+        <pin num="22" name="SD1" type="BiDi"/>
+        <pin num="23" name="IO15" type="BiDi"/>
+        <pin num="24" name="IO2" type="BiDi"/>
+        <pin num="25" name="IO0" type="BiDi"/>
+        <pin num="26" name="IO4" type="BiDi"/>
+        <pin num="27" name="NC" type="NotConnected"/>
+        <pin num="28" name="NC" type="NotConnected"/>
+        <pin num="29" name="IO5" type="BiDi"/>
+        <pin num="30" name="IO18" type="BiDi"/>
+        <pin num="31" name="IO19" type="BiDi"/>
+        <pin num="32" name="NC" type="NotConnected"/>
+        <pin num="33" name="IO21" type="BiDi"/>
+        <pin num="34" name="RXD0" type="BiDi"/>
+        <pin num="35" name="TXD0" type="BiDi"/>
+        <pin num="36" name="IO22" type="BiDi"/>
+        <pin num="37" name="IO23" type="BiDi"/>
+        <pin num="38" name="GND" type="power_in"/>
+        <pin num="39" name="P_GND" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="jeroens_components" part="HT7830_SOT89">
+      <aliases>
+        <alias>HT7818_SOT89</alias>
+        <alias>HT7827_SOT89</alias>
+        <alias>HT7825_SOT89</alias>
+        <alias>HT7833_SOT89</alias>
+        <alias>HT7850_SOT89</alias>
+      </aliases>
+      <description>HT783X 500mA LDO SOT89</description>
+      <footprints>
+        <fp>*:SOT-89-3*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">HT7830_SOT89</field>
+        <field name="Footprint">Package_TO_SOT_SMD:SOT-89-3</field>
+        <field name="Datasheet">http://www.holtek.com.tw/documents/10179/82844a36-1633-498c-a6e3-4d99f2d0f6d7</field>
+      </fields>
+      <pins>
+        <pin num="1" name="GND" type="power_in"/>
+        <pin num="2" name="VIN" type="power_in"/>
+        <pin num="3" name="VOUT" type="power_out"/>
+      </pins>
+    </libpart>
+    <libpart lib="jeroens_components" part="LCD_LH096T">
+      <description>LH096T 160*80 color LCD</description>
+      <docs>http://www.jmdlcd.com/downloadRepository/f743f83e-f761-4d72-b1f0-3fcd0ae34dc2.pdf</docs>
+      <fields>
+        <field name="Reference">DISP</field>
+        <field name="Value">LCD_LH096T</field>
+      </fields>
+      <pins>
+        <pin num="1" name="TP0" type="NotConnected"/>
+        <pin num="2" name="TP1" type="NotConnected"/>
+        <pin num="3" name="SDA" type="input"/>
+        <pin num="4" name="SCL" type="input"/>
+        <pin num="5" name="RS" type="input"/>
+        <pin num="6" name="RES" type="input"/>
+        <pin num="7" name="CS" type="input"/>
+        <pin num="8" name="GND" type="power_in"/>
+        <pin num="9" name="NC" type="NotConnected"/>
+        <pin num="10" name="VCC" type="input"/>
+        <pin num="11" name="LEDK" type="power_in"/>
+        <pin num="12" name="LEDA" type="power_in"/>
+        <pin num="13" name="GND" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="jeroens_components" part="MC14504B">
+      <description>Hex Level Shifter For TTL to CMOS or CMOS to CMOS</description>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">MC14504B</field>
+      </fields>
+      <pins>
+        <pin num="1" name="VCC" type="passive"/>
+        <pin num="2" name="Aout" type="output"/>
+        <pin num="3" name="Ain" type="input"/>
+        <pin num="4" name="Bout" type="output"/>
+        <pin num="5" name="Bin" type="input"/>
+        <pin num="6" name="Cout" type="output"/>
+        <pin num="7" name="Cin" type="input"/>
+        <pin num="8" name="VSS" type="passive"/>
+        <pin num="9" name="Din" type="input"/>
+        <pin num="10" name="Dout" type="output"/>
+        <pin num="11" name="Ein" type="input"/>
+        <pin num="12" name="Eout" type="output"/>
+        <pin num="13" name="MODE" type="input"/>
+        <pin num="14" name="Fin" type="input"/>
+        <pin num="15" name="Fout" type="output"/>
+        <pin num="16" name="VDD" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="jeroens_components" part="TCS3472">
+      <description>RGB color sensor, I2C</description>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">TCS3472</field>
+        <field name="Datasheet">https://ams.com/documents/20143/36005/TCS3472_DS000390_2-00.pdf</field>
+      </fields>
+      <pins>
+        <pin num="1" name="VDD" type="power_in"/>
+        <pin num="2" name="SCL" type="input"/>
+        <pin num="3" name="GND" type="power_in"/>
+        <pin num="4" name="NC" type="NotConnected"/>
+        <pin num="5" name="INT" type="output"/>
+        <pin num="6" name="SDA" type="BiDi"/>
+      </pins>
+    </libpart>
+    <libpart lib="jeroens_components" part="TP4056">
+      <description>1A LiIon battery charger</description>
+      <docs>/home/jeroen/pcb/lib-kicad/doc/TP4056.pdf</docs>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">TP4056</field>
+        <field name="Footprint">Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.35x2.35mm</field>
+        <field name="Datasheet">https://dlnmh9ip6v2uc.cloudfront.net/datasheets/Prototyping/TP4056.pdf</field>
+      </fields>
+      <pins>
+        <pin num="1" name="TEMP" type="input"/>
+        <pin num="2" name="PROG" type="input"/>
+        <pin num="3" name="GND" type="power_in"/>
+        <pin num="4" name="Vcc" type="power_in"/>
+        <pin num="5" name="BAT" type="power_in"/>
+        <pin num="6" name="nSTDBY" type="openCol"/>
+        <pin num="7" name="nCHRG" type="openCol"/>
+        <pin num="8" name="CE" type="input"/>
+        <pin num="9" name="EP" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="jeroens_components" part="VL53L0X">
+      <description>VL53L0X ToF distance sensor</description>
+      <footprints>
+        <fp>*:ST-OLGA-12*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">VL53L0X</field>
+        <field name="Datasheet">https://www.st.com/resource/en/datasheet/vl53l0x.pdf</field>
+      </fields>
+      <pins>
+        <pin num="1" name="AVDDVCSEL" type="power_in"/>
+        <pin num="2" name="AVSSVCSEL" type="power_in"/>
+        <pin num="3" name="GND" type="power_in"/>
+        <pin num="4" name="GND2" type="power_in"/>
+        <pin num="5" name="XSHUT" type="input"/>
+        <pin num="6" name="GND3" type="power_in"/>
+        <pin num="7" name="GPIO1" type="output"/>
+        <pin num="8" name="DNC" type="NotConnected"/>
+        <pin num="9" name="SDA" type="BiDi"/>
+        <pin num="10" name="SCL" type="input"/>
+        <pin num="11" name="AVDD" type="power_in"/>
+        <pin num="12" name="GND4" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="jeroens_components" part="XR2203">
+      <description>1.2MHz, 26V, 2.8A step-up DC/DC converter</description>
+      <docs>/home/jeroen/pcb/lib-kicad/doc/201331180.PDF</docs>
+      <footprints>
+        <fp>*:SOT-23-5*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">XR2203</field>
+        <field name="Footprint">Package_TO_SOT_SMD:SOT-23-5</field>
+        <field name="Datasheet">http://www.szxinna.com/pdf/201331180.PDF</field>
+      </fields>
+      <pins>
+        <pin num="1" name="SW" type="power_out"/>
+        <pin num="2" name="GND" type="power_in"/>
+        <pin num="3" name="FB" type="input"/>
+        <pin num="4" name="EN" type="input"/>
+        <pin num="5" name="IN" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="jeroens_components" part="wire_pad">
+      <description>wire_pad</description>
+      <fields>
+        <field name="Reference">X</field>
+        <field name="Value">wire_pad</field>
+      </fields>
+      <pins>
+        <pin num="1" name="pin" type="passive"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="Connector">
+      <uri>/usr/share/kicad/library/Connector.lib</uri>
+    </library>
+    <library logical="Device">
+      <uri>/usr/share/kicad/library/Device.lib</uri>
+    </library>
+    <library logical="Interface_Expansion">
+      <uri>/usr/share/kicad/library/Interface_Expansion.lib</uri>
+    </library>
+    <library logical="Sensor_Motion">
+      <uri>/usr/share/kicad/library/Sensor_Motion.lib</uri>
+    </library>
+    <library logical="Switch">
+      <uri>/usr/share/kicad/library/Switch.lib</uri>
+    </library>
+    <library logical="jeroens_components">
+      <uri>/home/jeroen/pcb/lib-kicad/jeroens_components.lib</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="GND">
+      <node ref="U9" pin="3"/>
+      <node ref="U6" pin="12"/>
+      <node ref="C21" pin="2"/>
+      <node ref="U5" pin="38"/>
+      <node ref="U5" pin="39"/>
+      <node ref="C20" pin="2"/>
+      <node ref="C23" pin="2"/>
+      <node ref="U9" pin="6"/>
+      <node ref="U9" pin="4"/>
+      <node ref="U6" pin="2"/>
+      <node ref="U9" pin="2"/>
+      <node ref="U9" pin="12"/>
+      <node ref="C31" pin="2"/>
+      <node ref="C30" pin="2"/>
+      <node ref="X48" pin="1"/>
+      <node ref="R16" pin="2"/>
+      <node ref="Q1" pin="2"/>
+      <node ref="C14" pin="2"/>
+      <node ref="C26" pin="2"/>
+      <node ref="C17" pin="2"/>
+      <node ref="C16" pin="2"/>
+      <node ref="U6" pin="6"/>
+      <node ref="U6" pin="4"/>
+      <node ref="U6" pin="3"/>
+      <node ref="U1" pin="2"/>
+      <node ref="C19" pin="2"/>
+      <node ref="U7" pin="3"/>
+      <node ref="U5" pin="1"/>
+      <node ref="U8" pin="8"/>
+      <node ref="U5" pin="15"/>
+      <node ref="U13" pin="13"/>
+      <node ref="U8" pin="3"/>
+      <node ref="U8" pin="2"/>
+      <node ref="U10" pin="20"/>
+      <node ref="X24" pin="1"/>
+      <node ref="C18" pin="2"/>
+      <node ref="U10" pin="11"/>
+      <node ref="C32" pin="2"/>
+      <node ref="DISP1" pin="13"/>
+      <node ref="U10" pin="18"/>
+      <node ref="DISP1" pin="8"/>
+      <node ref="Q6" pin="2"/>
+      <node ref="C29" pin="2"/>
+      <node ref="C22" pin="2"/>
+      <node ref="R13" pin="2"/>
+      <node ref="U8" pin="1"/>
+      <node ref="R23" pin="2"/>
+      <node ref="C24" pin="2"/>
+      <node ref="J4" pin="9"/>
+      <node ref="U13" pin="8"/>
+      <node ref="SW1" pin="2"/>
+      <node ref="C13" pin="2"/>
+      <node ref="C12" pin="2"/>
+      <node ref="U11" pin="3"/>
+      <node ref="Q2" pin="2"/>
+      <node ref="R17" pin="2"/>
+      <node ref="J3" pin="5"/>
+      <node ref="C25" pin="2"/>
+      <node ref="U11" pin="6"/>
+      <node ref="J4" pin="16"/>
+      <node ref="U11" pin="4"/>
+      <node ref="U11" pin="2"/>
+      <node ref="U11" pin="12"/>
+      <node ref="SW2" pin="2"/>
+      <node ref="R22" pin="2"/>
+      <node ref="C2" pin="2"/>
+      <node ref="C3" pin="2"/>
+      <node ref="U3" pin="3"/>
+      <node ref="C1" pin="2"/>
+      <node ref="U3" pin="1"/>
+      <node ref="J1" pin="2"/>
+      <node ref="U3" pin="9"/>
+      <node ref="R9" pin="2"/>
+      <node ref="C9" pin="2"/>
+      <node ref="C4" pin="2"/>
+      <node ref="C11" pin="2"/>
+      <node ref="C10" pin="2"/>
+      <node ref="U4" pin="1"/>
+      <node ref="U12" pin="13"/>
+      <node ref="U12" pin="14"/>
+      <node ref="R2" pin="2"/>
+      <node ref="Q5" pin="2"/>
+      <node ref="U12" pin="8"/>
+      <node ref="R7" pin="2"/>
+      <node ref="C6" pin="2"/>
+      <node ref="C7" pin="2"/>
+      <node ref="C8" pin="2"/>
+      <node ref="J2" pin="5"/>
+      <node ref="J2" pin="6"/>
+      <node ref="U2" pin="2"/>
+      <node ref="C5" pin="2"/>
+      <node ref="U12" pin="3"/>
+      <node ref="X27" pin="1"/>
+      <node ref="X28" pin="1"/>
+    </net>
+    <net code="2" name="Net-(J2-Pad4)">
+      <node ref="J2" pin="4"/>
+    </net>
+    <net code="3" name="Net-(J2-Pad3)">
+      <node ref="J2" pin="3"/>
+    </net>
+    <net code="4" name="Net-(J2-Pad2)">
+      <node ref="J2" pin="2"/>
+    </net>
+    <net code="5" name="Net-(J2-Pad1)">
+      <node ref="R5" pin="1"/>
+      <node ref="R4" pin="2"/>
+      <node ref="J2" pin="1"/>
+    </net>
+    <net code="6" name="Net-(R9-Pad1)">
+      <node ref="U3" pin="2"/>
+      <node ref="R9" pin="1"/>
+    </net>
+    <net code="7" name="Net-(D3-Pad1)">
+      <node ref="R6" pin="2"/>
+      <node ref="D3" pin="1"/>
+    </net>
+    <net code="8" name="Net-(D4-Pad1)">
+      <node ref="R8" pin="2"/>
+      <node ref="D4" pin="1"/>
+    </net>
+    <net code="9" name="Net-(D2-Pad2)">
+      <node ref="L2" pin="1"/>
+      <node ref="D2" pin="2"/>
+      <node ref="U2" pin="1"/>
+    </net>
+    <net code="10" name="9VA">
+      <node ref="R25" pin="1"/>
+      <node ref="X11" pin="1"/>
+    </net>
+    <net code="11" name="Net-(R6-Pad1)">
+      <node ref="U3" pin="7"/>
+      <node ref="R6" pin="1"/>
+    </net>
+    <net code="12" name="Net-(R8-Pad1)">
+      <node ref="R8" pin="1"/>
+      <node ref="U3" pin="6"/>
+    </net>
+    <net code="13" name="Vbat">
+      <node ref="R26" pin="1"/>
+      <node ref="L1" pin="2"/>
+      <node ref="C1" pin="1"/>
+      <node ref="U2" pin="5"/>
+      <node ref="DISP1" pin="12"/>
+      <node ref="C5" pin="1"/>
+      <node ref="L2" pin="2"/>
+      <node ref="D5" pin="2"/>
+      <node ref="C4" pin="1"/>
+      <node ref="U1" pin="5"/>
+      <node ref="C9" pin="1"/>
+      <node ref="U4" pin="2"/>
+      <node ref="J1" pin="1"/>
+      <node ref="X56" pin="1"/>
+      <node ref="X54" pin="1"/>
+      <node ref="X60" pin="1"/>
+      <node ref="X59" pin="1"/>
+    </net>
+    <net code="14" name="Net-(R26-Pad2)">
+      <node ref="U3" pin="5"/>
+      <node ref="R26" pin="2"/>
+    </net>
+    <net code="15" name="VCC">
+      <node ref="U11" pin="11"/>
+      <node ref="R27" pin="1"/>
+      <node ref="X30" pin="1"/>
+      <node ref="X29" pin="1"/>
+      <node ref="C25" pin="1"/>
+      <node ref="U8" pin="16"/>
+      <node ref="C19" pin="1"/>
+      <node ref="R29" pin="1"/>
+      <node ref="U13" pin="1"/>
+      <node ref="U12" pin="1"/>
+      <node ref="C18" pin="1"/>
+      <node ref="U5" pin="2"/>
+      <node ref="R12" pin="1"/>
+      <node ref="C26" pin="1"/>
+      <node ref="U11" pin="1"/>
+      <node ref="R28" pin="1"/>
+      <node ref="C29" pin="1"/>
+      <node ref="U7" pin="1"/>
+      <node ref="NT1" pin="1"/>
+      <node ref="X57" pin="1"/>
+      <node ref="X58" pin="1"/>
+      <node ref="C16" pin="1"/>
+      <node ref="C12" pin="1"/>
+      <node ref="C21" pin="1"/>
+      <node ref="U6" pin="11"/>
+      <node ref="U10" pin="8"/>
+      <node ref="DISP1" pin="10"/>
+      <node ref="C23" pin="1"/>
+      <node ref="U10" pin="13"/>
+      <node ref="U10" pin="1"/>
+      <node ref="U6" pin="1"/>
+      <node ref="C22" pin="1"/>
+      <node ref="C20" pin="1"/>
+      <node ref="C17" pin="1"/>
+      <node ref="U9" pin="1"/>
+      <node ref="X23" pin="1"/>
+      <node ref="X47" pin="1"/>
+      <node ref="U9" pin="11"/>
+      <node ref="C31" pin="1"/>
+      <node ref="C13" pin="1"/>
+      <node ref="R11" pin="1"/>
+      <node ref="R10" pin="1"/>
+    </net>
+    <net code="16" name="16VA">
+      <node ref="R24" pin="1"/>
+      <node ref="X26" pin="1"/>
+    </net>
+    <net code="17" name="16V">
+      <node ref="C32" pin="1"/>
+      <node ref="Q4" pin="3"/>
+      <node ref="R21" pin="1"/>
+      <node ref="R20" pin="1"/>
+      <node ref="R18" pin="1"/>
+      <node ref="U13" pin="16"/>
+      <node ref="Q3" pin="3"/>
+      <node ref="X12" pin="1"/>
+      <node ref="R19" pin="1"/>
+    </net>
+    <net code="18" name="9V">
+      <node ref="C30" pin="1"/>
+      <node ref="U12" pin="16"/>
+      <node ref="X25" pin="1"/>
+    </net>
+    <net code="19" name="VUSB">
+      <node ref="R4" pin="1"/>
+      <node ref="U3" pin="8"/>
+      <node ref="C8" pin="1"/>
+      <node ref="U3" pin="4"/>
+      <node ref="R5" pin="2"/>
+      <node ref="D4" pin="2"/>
+      <node ref="D3" pin="2"/>
+    </net>
+    <net code="20" name="Net-(R1-Pad2)">
+      <node ref="R1" pin="2"/>
+      <node ref="R2" pin="1"/>
+      <node ref="U1" pin="3"/>
+    </net>
+    <net code="21" name="Net-(C10-Pad1)">
+      <node ref="R27" pin="2"/>
+      <node ref="C10" pin="1"/>
+      <node ref="TP3" pin="1"/>
+      <node ref="C11" pin="1"/>
+      <node ref="U4" pin="3"/>
+    </net>
+    <net code="22" name="BOOST_EN">
+      <node ref="X51" pin="1"/>
+      <node ref="U8" pin="6"/>
+      <node ref="X52" pin="1"/>
+      <node ref="R13" pin="1"/>
+      <node ref="U2" pin="4"/>
+      <node ref="U1" pin="4"/>
+    </net>
+    <net code="23" name="Net-(C2-Pad1)">
+      <node ref="C3" pin="1"/>
+      <node ref="TP1" pin="1"/>
+      <node ref="R1" pin="1"/>
+      <node ref="C2" pin="1"/>
+      <node ref="R24" pin="2"/>
+      <node ref="D1" pin="1"/>
+    </net>
+    <net code="24" name="Net-(D1-Pad2)">
+      <node ref="L1" pin="1"/>
+      <node ref="D1" pin="2"/>
+      <node ref="U1" pin="1"/>
+    </net>
+    <net code="25" name="Net-(C6-Pad1)">
+      <node ref="TP2" pin="1"/>
+      <node ref="R3" pin="1"/>
+      <node ref="D2" pin="1"/>
+      <node ref="C6" pin="1"/>
+      <node ref="R25" pin="2"/>
+      <node ref="C7" pin="1"/>
+    </net>
+    <net code="26" name="Net-(R3-Pad2)">
+      <node ref="R7" pin="1"/>
+      <node ref="R3" pin="2"/>
+      <node ref="U2" pin="3"/>
+    </net>
+    <net code="27" name="Net-(U5-Pad20)">
+      <node ref="U5" pin="20"/>
+    </net>
+    <net code="28" name="Net-(U5-Pad19)">
+      <node ref="U5" pin="19"/>
+    </net>
+    <net code="29" name="Net-(U5-Pad18)">
+      <node ref="U5" pin="18"/>
+    </net>
+    <net code="30" name="Net-(U5-Pad17)">
+      <node ref="U5" pin="17"/>
+    </net>
+    <net code="31" name="LCD_BL_K">
+      <node ref="R15" pin="1"/>
+      <node ref="DISP1" pin="11"/>
+    </net>
+    <net code="32" name="Net-(J3-Pad2)">
+      <node ref="J3" pin="2"/>
+      <node ref="U5" pin="35"/>
+    </net>
+    <net code="33" name="Net-(J3-Pad3)">
+      <node ref="J3" pin="3"/>
+      <node ref="U5" pin="34"/>
+    </net>
+    <net code="34" name="Net-(U5-Pad32)">
+      <node ref="U5" pin="32"/>
+    </net>
+    <net code="35" name="Net-(U5-Pad21)">
+      <node ref="U5" pin="21"/>
+    </net>
+    <net code="36" name="Net-(U5-Pad28)">
+      <node ref="U5" pin="28"/>
+    </net>
+    <net code="37" name="Net-(U5-Pad27)">
+      <node ref="U5" pin="27"/>
+    </net>
+    <net code="38" name="Net-(U5-Pad22)">
+      <node ref="U5" pin="22"/>
+    </net>
+    <net code="39" name="Net-(DISP1-Pad9)">
+      <node ref="DISP1" pin="9"/>
+    </net>
+    <net code="40" name="Net-(DISP1-Pad2)">
+      <node ref="DISP1" pin="2"/>
+    </net>
+    <net code="41" name="Net-(DISP1-Pad1)">
+      <node ref="DISP1" pin="1"/>
+    </net>
+    <net code="42" name="LCD_SDA">
+      <node ref="DISP1" pin="3"/>
+      <node ref="U5" pin="9"/>
+    </net>
+    <net code="43" name="LCD_SCK">
+      <node ref="DISP1" pin="4"/>
+      <node ref="U5" pin="10"/>
+    </net>
+    <net code="44" name="LCD_RS">
+      <node ref="DISP1" pin="5"/>
+      <node ref="U5" pin="25"/>
+      <node ref="J3" pin="4"/>
+    </net>
+    <net code="45" name="LCD_RST">
+      <node ref="U8" pin="9"/>
+      <node ref="X53" pin="1"/>
+      <node ref="X55" pin="1"/>
+      <node ref="DISP1" pin="6"/>
+    </net>
+    <net code="46" name="LCD_CS">
+      <node ref="DISP1" pin="7"/>
+      <node ref="U5" pin="11"/>
+    </net>
+    <net code="47" name="CART_NOZD_C">
+      <node ref="U5" pin="12"/>
+      <node ref="X4" pin="1"/>
+      <node ref="X16" pin="1"/>
+      <node ref="U12" pin="11"/>
+    </net>
+    <net code="48" name="CART_NOZD_Y">
+      <node ref="U5" pin="16"/>
+      <node ref="X13" pin="1"/>
+      <node ref="U12" pin="5"/>
+      <node ref="X1" pin="1"/>
+    </net>
+    <net code="49" name="CART_NOZD_M">
+      <node ref="U5" pin="14"/>
+      <node ref="X2" pin="1"/>
+      <node ref="U12" pin="7"/>
+      <node ref="X14" pin="1"/>
+    </net>
+    <net code="50" name="I2C_SCL">
+      <node ref="X37" pin="1"/>
+      <node ref="X35" pin="1"/>
+      <node ref="X31" pin="1"/>
+      <node ref="X33" pin="1"/>
+      <node ref="U10" pin="23"/>
+      <node ref="TP5" pin="1"/>
+      <node ref="X49" pin="1"/>
+      <node ref="U9" pin="10"/>
+      <node ref="R29" pin="2"/>
+      <node ref="X39" pin="1"/>
+      <node ref="U8" pin="14"/>
+      <node ref="U5" pin="36"/>
+      <node ref="U11" pin="10"/>
+      <node ref="U6" pin="10"/>
+      <node ref="U7" pin="2"/>
+    </net>
+    <net code="51" name="CART_OPTD">
+      <node ref="U12" pin="9"/>
+      <node ref="X3" pin="1"/>
+      <node ref="U5" pin="13"/>
+      <node ref="X15" pin="1"/>
+    </net>
+    <net code="52" name="I2C_SDA">
+      <node ref="X40" pin="1"/>
+      <node ref="U11" pin="9"/>
+      <node ref="U8" pin="15"/>
+      <node ref="U6" pin="9"/>
+      <node ref="R28" pin="2"/>
+      <node ref="X50" pin="1"/>
+      <node ref="TP4" pin="1"/>
+      <node ref="X34" pin="1"/>
+      <node ref="X36" pin="1"/>
+      <node ref="X38" pin="1"/>
+      <node ref="X32" pin="1"/>
+      <node ref="U5" pin="37"/>
+      <node ref="U9" pin="9"/>
+      <node ref="U7" pin="6"/>
+      <node ref="U10" pin="24"/>
+    </net>
+    <net code="53" name="CART_PWRA">
+      <node ref="R22" pin="1"/>
+      <node ref="U5" pin="23"/>
+      <node ref="X65" pin="1"/>
+      <node ref="Q5" pin="1"/>
+      <node ref="X63" pin="1"/>
+    </net>
+    <net code="54" name="CART_PWRB">
+      <node ref="X64" pin="1"/>
+      <node ref="X66" pin="1"/>
+      <node ref="Q6" pin="1"/>
+      <node ref="R23" pin="1"/>
+      <node ref="U5" pin="33"/>
+    </net>
+    <net code="55" name="Net-(R12-Pad2)">
+      <node ref="R12" pin="2"/>
+      <node ref="SW2" pin="1"/>
+      <node ref="U5" pin="6"/>
+    </net>
+    <net code="56" name="CART_OPT2">
+      <node ref="U13" pin="9"/>
+      <node ref="X8" pin="1"/>
+      <node ref="X20" pin="1"/>
+      <node ref="U5" pin="8"/>
+    </net>
+    <net code="57" name="CART_OPT3">
+      <node ref="U5" pin="31"/>
+      <node ref="X21" pin="1"/>
+      <node ref="U13" pin="11"/>
+      <node ref="X9" pin="1"/>
+    </net>
+    <net code="58" name="CART_NOZCLK">
+      <node ref="X10" pin="1"/>
+      <node ref="U13" pin="14"/>
+      <node ref="U5" pin="30"/>
+      <node ref="X22" pin="1"/>
+    </net>
+    <net code="59" name="CART_OPT4">
+      <node ref="X7" pin="1"/>
+      <node ref="U5" pin="24"/>
+      <node ref="X19" pin="1"/>
+      <node ref="U13" pin="7"/>
+    </net>
+    <net code="60" name="Net-(U5-Pad5)">
+      <node ref="U5" pin="5"/>
+    </net>
+    <net code="61" name="Net-(U5-Pad4)">
+      <node ref="U5" pin="4"/>
+    </net>
+    <net code="62" name="CART_OPT1">
+      <node ref="X6" pin="1"/>
+      <node ref="U5" pin="26"/>
+      <node ref="U13" pin="5"/>
+      <node ref="X18" pin="1"/>
+    </net>
+    <net code="63" name="CART_OPT5">
+      <node ref="X5" pin="1"/>
+      <node ref="U13" pin="3"/>
+      <node ref="U5" pin="29"/>
+      <node ref="X17" pin="1"/>
+    </net>
+    <net code="64" name="Net-(R11-Pad2)">
+      <node ref="R11" pin="2"/>
+      <node ref="SW1" pin="1"/>
+      <node ref="U5" pin="7"/>
+    </net>
+    <net code="65" name="Net-(C14-Pad1)">
+      <node ref="U5" pin="3"/>
+      <node ref="R10" pin="2"/>
+      <node ref="C14" pin="1"/>
+      <node ref="J3" pin="1"/>
+    </net>
+    <net code="66" name="Net-(Q2-Pad3)">
+      <node ref="R15" pin="2"/>
+      <node ref="Q2" pin="3"/>
+    </net>
+    <net code="67" name="/Sensors/XSHUT1">
+      <node ref="X67" pin="1"/>
+      <node ref="U9" pin="5"/>
+    </net>
+    <net code="68" name="Net-(NT1-Pad2)">
+      <node ref="U10" pin="22"/>
+      <node ref="NT1" pin="2"/>
+      <node ref="U10" pin="9"/>
+    </net>
+    <net code="69" name="Net-(C24-Pad1)">
+      <node ref="U10" pin="10"/>
+      <node ref="C24" pin="1"/>
+    </net>
+    <net code="70" name="Net-(U10-Pad12)">
+      <node ref="U10" pin="12"/>
+    </net>
+    <net code="71" name="Net-(U10-Pad7)">
+      <node ref="U10" pin="7"/>
+    </net>
+    <net code="72" name="Net-(U10-Pad21)">
+      <node ref="U10" pin="21"/>
+    </net>
+    <net code="73" name="/Sensors/LCD_BL_EN">
+      <node ref="X61" pin="1"/>
+      <node ref="Q2" pin="1"/>
+      <node ref="X62" pin="1"/>
+      <node ref="R17" pin="1"/>
+      <node ref="U8" pin="10"/>
+    </net>
+    <net code="74" name="Net-(U8-Pad11)">
+      <node ref="U8" pin="11"/>
+    </net>
+    <net code="75" name="Net-(U11-Pad8)">
+      <node ref="U11" pin="8"/>
+    </net>
+    <net code="76" name="Net-(U11-Pad7)">
+      <node ref="U11" pin="7"/>
+    </net>
+    <net code="77" name="Net-(U9-Pad7)">
+      <node ref="U9" pin="7"/>
+    </net>
+    <net code="78" name="Net-(U6-Pad7)">
+      <node ref="U6" pin="7"/>
+    </net>
+    <net code="79" name="Net-(U6-Pad8)">
+      <node ref="U6" pin="8"/>
+    </net>
+    <net code="80" name="Net-(U9-Pad8)">
+      <node ref="U9" pin="8"/>
+    </net>
+    <net code="81" name="Net-(D5-Pad1)">
+      <node ref="R14" pin="1"/>
+      <node ref="D5" pin="1"/>
+    </net>
+    <net code="82" name="Net-(Q1-Pad3)">
+      <node ref="Q1" pin="3"/>
+      <node ref="R14" pin="2"/>
+    </net>
+    <net code="83" name="Net-(Q1-Pad1)">
+      <node ref="U8" pin="7"/>
+      <node ref="Q1" pin="1"/>
+      <node ref="R16" pin="1"/>
+    </net>
+    <net code="84" name="Net-(U7-Pad5)">
+      <node ref="U7" pin="5"/>
+    </net>
+    <net code="85" name="/Sensors/XSHUT2">
+      <node ref="U8" pin="12"/>
+      <node ref="U6" pin="5"/>
+      <node ref="X43" pin="1"/>
+      <node ref="X44" pin="1"/>
+    </net>
+    <net code="86" name="Net-(U8-Pad13)">
+      <node ref="U8" pin="13"/>
+    </net>
+    <net code="87" name="Net-(U7-Pad4)">
+      <node ref="U7" pin="4"/>
+    </net>
+    <net code="88" name="/Sensors/XSHUT1A">
+      <node ref="X68" pin="1"/>
+      <node ref="X42" pin="1"/>
+      <node ref="X41" pin="1"/>
+      <node ref="U8" pin="5"/>
+    </net>
+    <net code="89" name="/Sensors/XSHUT3">
+      <node ref="X46" pin="1"/>
+      <node ref="X45" pin="1"/>
+      <node ref="U11" pin="5"/>
+      <node ref="U8" pin="4"/>
+    </net>
+    <net code="90" name="Net-(U12-Pad15)">
+      <node ref="U12" pin="15"/>
+    </net>
+    <net code="91" name="Net-(C27-Pad1)">
+      <node ref="Q3" pin="1"/>
+      <node ref="R19" pin="2"/>
+      <node ref="C27" pin="1"/>
+    </net>
+    <net code="92" name="Net-(C27-Pad2)">
+      <node ref="C27" pin="2"/>
+      <node ref="Q5" pin="3"/>
+      <node ref="R18" pin="2"/>
+    </net>
+    <net code="93" name="Net-(U12-Pad2)">
+      <node ref="U12" pin="2"/>
+    </net>
+    <net code="94" name="Net-(J4-Pad10)">
+      <node ref="U13" pin="12"/>
+      <node ref="J4" pin="10"/>
+    </net>
+    <net code="95" name="Net-(J4-Pad6)">
+      <node ref="U13" pin="6"/>
+      <node ref="J4" pin="6"/>
+    </net>
+    <net code="96" name="Net-(J4-Pad5)">
+      <node ref="J4" pin="5"/>
+      <node ref="U13" pin="4"/>
+    </net>
+    <net code="97" name="Net-(J4-Pad1)">
+      <node ref="U13" pin="2"/>
+      <node ref="J4" pin="1"/>
+    </net>
+    <net code="98" name="Net-(J4-Pad11)">
+      <node ref="U13" pin="15"/>
+      <node ref="J4" pin="11"/>
+    </net>
+    <net code="99" name="Net-(J4-Pad7)">
+      <node ref="J4" pin="7"/>
+      <node ref="U13" pin="10"/>
+    </net>
+    <net code="100" name="Net-(J4-Pad2)">
+      <node ref="J4" pin="2"/>
+      <node ref="U12" pin="12"/>
+    </net>
+    <net code="101" name="Net-(J4-Pad8)">
+      <node ref="J4" pin="8"/>
+    </net>
+    <net code="102" name="Net-(J4-Pad4)">
+      <node ref="J4" pin="4"/>
+      <node ref="Q4" pin="2"/>
+    </net>
+    <net code="103" name="Net-(J4-Pad3)">
+      <node ref="J4" pin="3"/>
+      <node ref="U12" pin="10"/>
+    </net>
+    <net code="104" name="Net-(J4-Pad15)">
+      <node ref="J4" pin="15"/>
+      <node ref="Q3" pin="2"/>
+    </net>
+    <net code="105" name="Net-(J4-Pad14)">
+      <node ref="U12" pin="6"/>
+      <node ref="J4" pin="14"/>
+    </net>
+    <net code="106" name="Net-(J4-Pad13)">
+      <node ref="J4" pin="13"/>
+    </net>
+    <net code="107" name="Net-(J4-Pad12)">
+      <node ref="U12" pin="4"/>
+      <node ref="J4" pin="12"/>
+    </net>
+    <net code="108" name="Net-(C28-Pad1)">
+      <node ref="Q4" pin="1"/>
+      <node ref="R21" pin="2"/>
+      <node ref="C28" pin="1"/>
+    </net>
+    <net code="109" name="Net-(C28-Pad2)">
+      <node ref="R20" pin="2"/>
+      <node ref="C28" pin="2"/>
+      <node ref="Q6" pin="3"/>
+    </net>
+  </nets>
+</export>

@@ -1,0 +1,27 @@
+Drill report for /home/jeroen/pcb/magicbrush/magicbrush/magicbrush.kicad_pcb
+Created on Sun 09 Dec 2018 10:02:14 PM CST
+
+Copper Layer Stackup:
+    =============================================================
+    L1 :  F.Cu                      front
+    L2 :  B.Cu                      back
+
+
+Drill file 'magicbrush-PTH.drl' contains
+    plated through holes:
+    =============================================================
+    T1  0.20mm  0.008"  (87 holes)
+    T2  0.30mm  0.012"  (2 holes)
+    T3  0.50mm  0.020"  (88 holes)
+    T4  0.70mm  0.028"  (4 holes)  (with 4 slots)
+    T5  1.00mm  0.039"  (7 holes)
+    T6  1.10mm  0.043"  (24 holes)
+
+    Total plated holes count 212
+
+
+Drill file 'magicbrush-NPTH.drl' contains
+    unplated through holes:
+    =============================================================
+
+    Total unplated holes count 0
